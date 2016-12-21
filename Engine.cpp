@@ -175,6 +175,8 @@ void Engine::_createTextures() {
 void Engine::_createShapes() {
 	m_renderables.addShape(SHIP);
 	m_renderables.addShape(ASTEROID);
+	m_renderables.addShape(GUN_BULLET);
+	m_renderables.addShape(MISSILE);
 	m_renderables.generateBuffers();
 	m_renderables.generateVertexArrays(m_shaderProgram);
 }

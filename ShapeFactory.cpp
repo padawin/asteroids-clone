@@ -3,6 +3,12 @@
 
 void ShapeFactory::getShape(ShapeType type, Shape *shape) {
 	switch (type) {
+		case GUN_BULLET:
+			_getGunBulletShape(shape);
+			break;
+		case MISSILE:
+			_getMissileShape(shape);
+			break;
 		case SHIP:
 			_getShipShape(shape);
 			break;
@@ -27,6 +33,38 @@ void ShapeFactory::_getShipShape(Shape *ship) {
 
 	ship->setVertices(vertices, sizeof(vertices));
 	ship->setElements(elements, sizeof(elements));
+}
+
+void ShapeFactory::_getGunBulletShape(Shape *gunBullet) {
+	GLfloat vertices[] = {
+		0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.1f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.1f, 0.1f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.1f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+	GLuint elements[] = {
+		0, 2, 1,
+		3, 1, 0
+	};
+
+	gunBullet->setVertices(vertices, sizeof(vertices));
+	gunBullet->setElements(elements, sizeof(elements));
+}
+
+void ShapeFactory::_getMissileShape(Shape *missile) {
+	GLfloat vertices[] = {
+		0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.3f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.1f, 0.3f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.1f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f
+	};
+	GLuint elements[] = {
+		0, 2, 1,
+		3, 1, 0
+	};
+
+	missile->setVertices(vertices, sizeof(vertices));
+	missile->setElements(elements, sizeof(elements));
 }
 
 void ShapeFactory::_getAsteroidShape(Shape *asteroid) {

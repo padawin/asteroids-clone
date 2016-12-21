@@ -3,10 +3,12 @@
 
 #include "Shape.hpp"
 
-enum ShapeType {SHIP, ASTEROID};
+enum ShapeType {GUN_BULLET, MISSILE, SHIP, ASTEROID};
 
 class ShapeFactory {
 	private:
+	static void _getGunBulletShape(Shape *ship);
+	static void _getMissileShape(Shape *ship);
 	static void _getShipShape(Shape *ship);
 	static void _getAsteroidShape(Shape *asteroid);
 
