@@ -1,3 +1,4 @@
+#include "config.h"
 #include "Player.hpp"
 #include "ShapeFactory.hpp"
 #include <math.h>
@@ -18,7 +19,19 @@ void Player::update() {
 	if (m_bIsFiring) {
 		_fire();
 	}
-	// @TODO free bullets too far
+
+	for (std::vector<Entity*>::size_type i = 0; i < m_vBullets.size(); ++i) {
+		Vector3D distance = m_vBullets.at(i)->getPosition() - m_VPosition;
+		if (distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
+			_removeBullet(i);
+		}
+	}
+}
+
+void Player::_removeBullet(unsigned int bulletIndex) {
+	free(m_vBullets[bulletIndex]);
+	m_vBullets[bulletIndex] = m_vBullets.back();
+	m_vBullets.pop_back();
 }
 
 void Player::_updateDirection() {

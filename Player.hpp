@@ -10,6 +10,7 @@ class Player : public Entity {
 	void _steer(float angle);
 	void _updateDirection();
 	void _fire();
+	void _removeBullet(unsigned int bulletIndex);
 
 	WeaponType m_selectedWeapon = TYPE_GUN;
 	float m_fSteerAngle = 0.0f;
