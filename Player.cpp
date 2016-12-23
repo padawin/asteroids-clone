@@ -51,3 +51,13 @@ void Player::steerLeft(bool activate) {
 void Player::steerRight(bool activate) {
 	_steer(activate ? -2.0f : 0.0f);
 }
+
+std::vector<Bullet*> Player::getBullets() {
+	return m_vBullets;
+}
+
+void Player::clean() {
+	for (auto& bullet : m_vBullets) {
+		free(bullet);
+	}
+}
