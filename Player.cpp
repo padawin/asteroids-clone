@@ -69,9 +69,7 @@ void Player::_fire() {
 	}
 	b->setPosition(m_VPosition);
 	b->setDirection(m_VDirection);
-	Vector3D speed = m_VDirection;
-	speed.normalize();
-	speed *= 0.5f;
+	Vector3D speed = m_VDirection * (m_VSpeed.getLength() + 0.5f);
 	b->setSpeed(speed);
 	m_vBullets.push_back(b);
 }
