@@ -9,7 +9,11 @@ class Player : public Entity {
 	private:
 	void _steer(float angle);
 	void _updateDirection();
+	void _fire();
+
+	WeaponType m_selectedWeapon = TYPE_GUN;
 	float m_fSteerAngle = 0.0f;
+	bool m_bIsFiring = false;
 	std::vector<Bullet*> m_vBullets;
 
 	public:
@@ -19,6 +23,8 @@ class Player : public Entity {
 	void steerLeft(bool activate);
 	void steerRight(bool activate);
 	void update();
+	void openFire();
+	void ceaseFire();
 	std::vector<Bullet*> getBullets();
 	void clean();
 };

@@ -216,6 +216,9 @@ bool Engine::_handleEvents() {
 				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(true);
 				}
+				else if (event.key.keysym.sym == SDLK_SPACE) {
+					m_player.openFire();
+				}
 				break;
 
 			case SDL_KEYUP:
@@ -230,6 +233,9 @@ bool Engine::_handleEvents() {
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(false);
+				}
+				else if (event.key.keysym.sym == SDLK_SPACE) {
+					m_player.ceaseFire();
 				}
 				break;
 		}

@@ -14,6 +14,11 @@ void Player::update() {
 	if (m_fSteerAngle != 0.0f) {
 		_updateDirection();
 	}
+
+	if (m_bIsFiring) {
+		_fire();
+	}
+	// @TODO free bullets too far
 }
 
 void Player::_updateDirection() {
@@ -50,6 +55,33 @@ void Player::steerLeft(bool activate) {
 
 void Player::steerRight(bool activate) {
 	_steer(activate ? -2.0f : 0.0f);
+}
+
+void Player::_fire() {
+	Bullet* b;
+	switch (m_selectedWeapon) {
+		case TYPE_GUN:
+			b = new GunBullet();
+			break;
+		case TYPE_MISSILE:
+			b = new Missile();
+			break;
+	}
+	b->setPosition(m_VPosition);
+	b->setDirection(m_VDirection);
+	Vector3D speed = m_VDirection;
+	speed.normalize();
+	speed *= 0.5f;
+	b->setSpeed(speed);
+	m_vBullets.push_back(b);
+}
+
+void Player::openFire() {
+	m_bIsFiring = true;
+}
+
+void Player::ceaseFire() {
+	m_bIsFiring = false;
 }
 
 std::vector<Bullet*> Player::getBullets() {
