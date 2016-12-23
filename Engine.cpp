@@ -203,31 +203,31 @@ bool Engine::_handleEvents() {
 				break;
 
 			case SDL_KEYDOWN:
-				if (event.key.keysym.scancode == 82) {
+				if (event.key.keysym.sym == SDLK_UP) {
 					m_player.thrust(true);
 				}
-				else if (event.key.keysym.scancode == 81) {
+				else if (event.key.keysym.sym == SDLK_DOWN) {
 					m_player.reverseThrust(true);
 				}
-				else if (event.key.keysym.scancode == 80) {
+				else if (event.key.keysym.sym == SDLK_LEFT) {
 					m_player.steerLeft(true);
 				}
-				else if (event.key.keysym.scancode == 79) {
+				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(true);
 				}
 				break;
 
 			case SDL_KEYUP:
-				if (event.key.keysym.scancode == 82) {
+				if (event.key.keysym.sym == SDLK_UP) {
 					m_player.thrust(false);
 				}
-				else if (event.key.keysym.scancode == 81) {
+				else if (event.key.keysym.sym == SDLK_DOWN) {
 					m_player.reverseThrust(false);
 				}
-				else if (event.key.keysym.scancode == 80) {
+				else if (event.key.keysym.sym == SDLK_LEFT) {
 					m_player.steerLeft(false);
 				}
-				else if (event.key.keysym.scancode == 79) {
+				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(false);
 				}
 				break;
