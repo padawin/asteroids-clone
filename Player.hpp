@@ -12,7 +12,7 @@ class Player : public Entity {
 	void _fire();
 	void _removeBullet(unsigned int bulletIndex);
 
-	WeaponType m_selectedWeapon = TYPE_GUN;
+	BulletType m_selectedWeapon = TYPE_GUN;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
 	std::vector<Bullet*> m_vBullets;

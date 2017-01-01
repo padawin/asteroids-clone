@@ -3,7 +3,7 @@
 
 #include "Entity.hpp"
 
-typedef enum {TYPE_GUN, TYPE_MISSILE} WeaponType;
+typedef enum {TYPE_GUN, TYPE_MISSILE} BulletType;
 
 class Bullet : public Entity {
 	public:
