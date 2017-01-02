@@ -81,7 +81,7 @@ void Player::steerRight(bool activate) {
 
 void Player::_fire() {
 	m_vBullets.push_back(
-		(*m_selectedWeapon)->fire(m_VPosition, m_VDirection, m_VSpeed)
+		(*m_selectedWeapon)->fire(m_VPosition, m_VDirection, m_VSpeed, m_VAngle)
 	);
 }
 

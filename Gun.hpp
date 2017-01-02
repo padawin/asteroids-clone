@@ -7,7 +7,7 @@
 class Gun : public Weapon {
 	public:
 	Gun() {m_bulletType = TYPE_GUN;}
-	Bullet* fire(Vector3D position, Vector3D direction, Vector3D initialSpeed);
+	Bullet* fire(Vector3D position, Vector3D direction, Vector3D initialSpeed, Vector3D angle);
 };
 
 #endif
