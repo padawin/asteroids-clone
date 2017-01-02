@@ -3,15 +3,13 @@
 
 #include <SDL2/SDL.h>
 
+#include "config.h"
 #include "RenderableCollection.hpp"
 #include "EntityCollection.hpp"
 #include "Player.hpp"
 #include "AsteroidGenerator.hpp"
 
 #define GLSL(src) "#version 150 core\n" #src
-#define MIN_DISTANCE_ASTEROID_GENERATE 10
-#define MAX_DISTANCE_ASTEROID_GENERATE 13
-#define MAX_DISTANCE_FROM_PLAYER 13
 
 const int NB_MAX_INIT_ASTEROIDS = 20;
 

@@ -40,6 +40,7 @@ void Engine::clean() {
 	glDeleteProgram(m_shaderProgram);
 	glDeleteShader(m_fragmentShader);
 	glDeleteShader(m_vertexShader);
+	m_player.clean();
 	m_asteroidGenerator.clean();
 	m_renderables.clean();
 	_cleanSDL();
@@ -175,6 +176,8 @@ void Engine::_createTextures() {
 void Engine::_createShapes() {
 	m_renderables.addShape(SHIP);
 	m_renderables.addShape(ASTEROID);
+	m_renderables.addShape(GUN_BULLET);
+	m_renderables.addShape(MISSILE);
 	m_renderables.generateBuffers();
 	m_renderables.generateVertexArrays(m_shaderProgram);
 }
@@ -201,32 +204,50 @@ bool Engine::_handleEvents() {
 				break;
 
 			case SDL_KEYDOWN:
-				if (event.key.keysym.scancode == 82) {
+				if (event.key.keysym.sym == SDLK_UP) {
 					m_player.thrust(true);
 				}
-				else if (event.key.keysym.scancode == 81) {
+				else if (event.key.keysym.sym == SDLK_DOWN) {
 					m_player.reverseThrust(true);
 				}
-				else if (event.key.keysym.scancode == 80) {
+				else if (event.key.keysym.sym == SDLK_LEFT) {
 					m_player.steerLeft(true);
 				}
-				else if (event.key.keysym.scancode == 79) {
+				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(true);
+				}
+				else if (event.key.keysym.sym == SDLK_SPACE) {
+					m_player.openFire();
+				}
+				else if (event.key.keysym.sym == SDLK_1) {
+					m_player.setWeapon1();
+				}
+				else if (event.key.keysym.sym == SDLK_2) {
+					m_player.setWeapon2();
+				}
+				else if (event.key.keysym.sym == SDLK_3) {
+					m_player.setWeapon3();
+				}
+				else if (event.key.keysym.sym == SDLK_4) {
+					m_player.setWeapon4();
 				}
 				break;
 
 			case SDL_KEYUP:
-				if (event.key.keysym.scancode == 82) {
+				if (event.key.keysym.sym == SDLK_UP) {
 					m_player.thrust(false);
 				}
-				else if (event.key.keysym.scancode == 81) {
+				else if (event.key.keysym.sym == SDLK_DOWN) {
 					m_player.reverseThrust(false);
 				}
-				else if (event.key.keysym.scancode == 80) {
+				else if (event.key.keysym.sym == SDLK_LEFT) {
 					m_player.steerLeft(false);
 				}
-				else if (event.key.keysym.scancode == 79) {
+				else if (event.key.keysym.sym == SDLK_RIGHT) {
 					m_player.steerRight(false);
+				}
+				else if (event.key.keysym.sym == SDLK_SPACE) {
+					m_player.ceaseFire();
 				}
 				break;
 		}
@@ -239,6 +260,9 @@ void Engine::_update() {
 	m_asteroidGenerator.update(m_player.getPosition());
 	m_entityCollection.flush();
 	m_entityCollection.addEntity(&m_player);
+	for (auto& bullet : m_player.getBullets()) {
+		m_entityCollection.addEntity(bullet);
+	}
 	for (auto& asteroid : m_asteroidGenerator.getAsteroids()) {
 		m_entityCollection.addEntity(asteroid);
 	}
