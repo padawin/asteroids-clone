@@ -42,7 +42,6 @@ void Engine::clean() {
 	glDeleteProgram(m_shaderProgram);
 	glDeleteShader(m_fragmentShader);
 	glDeleteShader(m_vertexShader);
-	m_player.clean();
 	m_asteroidGenerator.clean();
 	m_renderables.clean();
 	_cleanSDL();
@@ -270,9 +269,6 @@ void Engine::_update() {
 	m_asteroidGenerator.update(m_player.getPosition());
 	m_world.update(m_player.getPosition());
 	m_entityCollection.flush();
-	for (auto& bullet : m_player.getBullets()) {
-		m_entityCollection.addEntity(bullet);
-	}
 	for (auto& asteroid : m_asteroidGenerator.getAsteroids()) {
 		m_entityCollection.addEntity(asteroid);
 	}
