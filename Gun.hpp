@@ -6,6 +6,7 @@
 
 class Gun : public Weapon {
 	protected:
+	unsigned int _getReloadSpeed() {return 100;}
 	Bullet* _createBullet();
 };
 

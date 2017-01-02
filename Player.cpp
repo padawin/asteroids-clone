@@ -35,6 +35,12 @@ void Player::update() {
 			_removeBullet(i);
 		}
 	}
+
+	for (int w = 0; w < NB_MAX_WEAPONS; ++w) {
+		if (m_weapons[w] != NULL) {
+			m_weapons[w]->update();
+		}
+	}
 }
 
 void Player::_removeBullet(unsigned int bulletIndex) {
