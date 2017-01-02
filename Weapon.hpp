@@ -5,10 +5,10 @@
 
 class Weapon {
 	protected:
-	BulletType m_bulletType;
+	virtual Bullet* _createBullet() = 0;
 
 	public:
-	virtual Bullet* fire(Vector3D position, Vector3D direction, Vector3D initialSpeed, Vector3D angle) = 0;
+	virtual Bullet* fire(Vector3D position, Vector3D direction, Vector3D initialSpeed, Vector3D angle);
 };
 
 #endif
