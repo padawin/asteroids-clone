@@ -2,12 +2,16 @@
 #include "Player.hpp"
 #include "ShapeFactory.hpp"
 #include "Gun.hpp"
+#include "MissileLauncher.hpp"
 #include <math.h>
 
 #define ACCELERATION_COEFFICIENT 0.002
 
 Player::Player() {
 	m_weapon1 = new Gun();
+	m_weapon2 = new MissileLauncher();
+	m_weapon3 = NULL;
+	m_weapon4 = NULL;
 }
 
 ShapeType Player::getShapeType() {
