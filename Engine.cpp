@@ -193,6 +193,7 @@ void Engine::_generateEntities() {
 		MIN_DISTANCE_ASTEROID_GENERATE,
 		MAX_DISTANCE_ASTEROID_GENERATE
 	);
+	m_world.addEntity(&m_player);
 }
 
 void Engine::_handleEvents() {
@@ -269,7 +270,6 @@ void Engine::_update() {
 	m_asteroidGenerator.update(m_player.getPosition());
 	m_world.update(m_player.getPosition());
 	m_entityCollection.flush();
-	m_entityCollection.addEntity(&m_player);
 	for (auto& bullet : m_player.getBullets()) {
 		m_entityCollection.addEntity(bullet);
 	}
