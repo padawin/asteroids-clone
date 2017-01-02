@@ -24,7 +24,7 @@ class Engine {
 	GLuint m_fragmentShader;
 	GLuint m_shaderProgram;
 
-	Player m_player;
+	Player* m_player;
 	AsteroidGenerator m_asteroidGenerator;
 	RenderableCollection m_entityCollection;
 

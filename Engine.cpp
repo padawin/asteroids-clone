@@ -184,15 +184,16 @@ void Engine::_createShapes() {
 }
 
 void Engine::_generateEntities() {
-	m_player.setPosition(Vector3D(0.0f, 0.0f, 0.0f));
-	m_player.setDirection(Vector3D(0.0f, 1.0f, 0.0f));
+	m_player = new Player();
+	m_player->setPosition(Vector3D(0.0f, 0.0f, 0.0f));
+	m_player->setDirection(Vector3D(0.0f, 1.0f, 0.0f));
 
 	m_asteroidGenerator.setDistanceRecycle(MAX_DISTANCE_FROM_PLAYER);
 	m_asteroidGenerator.setRangeDistanceAppear(
 		MIN_DISTANCE_ASTEROID_GENERATE,
 		MAX_DISTANCE_ASTEROID_GENERATE
 	);
-	m_world.addEntity(&m_player);
+	m_world.addEntity(m_player);
 }
 
 void Engine::_handleEvents() {
@@ -205,31 +206,31 @@ void Engine::_handleEvents() {
 
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_UP) {
-					m_player.thrust(true);
+					m_player->thrust(true);
 				}
 				else if (event.key.keysym.sym == SDLK_DOWN) {
-					m_player.reverseThrust(true);
+					m_player->reverseThrust(true);
 				}
 				else if (event.key.keysym.sym == SDLK_LEFT) {
-					m_player.steerLeft(true);
+					m_player->steerLeft(true);
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT) {
-					m_player.steerRight(true);
+					m_player->steerRight(true);
 				}
 				else if (event.key.keysym.sym == SDLK_SPACE) {
-					m_player.openFire();
+					m_player->openFire();
 				}
 				else if (event.key.keysym.sym == SDLK_1) {
-					m_player.setWeapon1();
+					m_player->setWeapon1();
 				}
 				else if (event.key.keysym.sym == SDLK_2) {
-					m_player.setWeapon2();
+					m_player->setWeapon2();
 				}
 				else if (event.key.keysym.sym == SDLK_3) {
-					m_player.setWeapon3();
+					m_player->setWeapon3();
 				}
 				else if (event.key.keysym.sym == SDLK_4) {
-					m_player.setWeapon4();
+					m_player->setWeapon4();
 				}
 				else if (event.key.keysym.sym == SDLK_p && m_bPauseButtonReleased) {
 					m_bIsPaused = !m_bIsPaused;
@@ -239,19 +240,19 @@ void Engine::_handleEvents() {
 
 			case SDL_KEYUP:
 				if (event.key.keysym.sym == SDLK_UP) {
-					m_player.thrust(false);
+					m_player->thrust(false);
 				}
 				else if (event.key.keysym.sym == SDLK_DOWN) {
-					m_player.reverseThrust(false);
+					m_player->reverseThrust(false);
 				}
 				else if (event.key.keysym.sym == SDLK_LEFT) {
-					m_player.steerLeft(false);
+					m_player->steerLeft(false);
 				}
 				else if (event.key.keysym.sym == SDLK_RIGHT) {
-					m_player.steerRight(false);
+					m_player->steerRight(false);
 				}
 				else if (event.key.keysym.sym == SDLK_SPACE) {
-					m_player.ceaseFire();
+					m_player->ceaseFire();
 				}
 				else if (event.key.keysym.sym == SDLK_p) {
 					m_bPauseButtonReleased = true;
@@ -266,8 +267,8 @@ void Engine::_update() {
 		return;
 	}
 
-	m_asteroidGenerator.update(m_world, m_player.getPosition());
-	m_world.update(m_player.getPosition());
+	m_asteroidGenerator.update(m_world, m_player->getPosition());
+	m_world.update(m_player->getPosition());
 	m_entityCollection.flush();
 	m_entityCollection.update(m_world, m_player.getPosition());
 }
@@ -276,9 +277,9 @@ void Engine::_update() {
 void Engine::_setCamera() {
 	glm::mat4 view = glm::lookAt(
 		// camera's position
-		glm::vec3(m_player.getPosition().getX(), m_player.getPosition().getY(), 15.0f),
+		glm::vec3(m_player->getPosition().getX(), m_player->getPosition().getY(), 15.0f),
 		// point where the camera is aiming at (eg player's position)
-		glm::vec3(m_player.getPosition().getX(), m_player.getPosition().getY(), m_player.getPosition().getZ()),
+		glm::vec3(m_player->getPosition().getX(), m_player->getPosition().getY(), m_player->getPosition().getZ()),
 		// "up" vector of the camera, for its orientation, based on player's
 		// orientation
 		glm::vec3(0.0f, 1.0f, 0.0f)
