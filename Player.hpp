@@ -6,19 +6,18 @@
 #include "Weapon.hpp"
 #include <vector>
 
+#define NB_MAX_WEAPONS 4
+
 class Player : public Entity {
 	private:
 	void _steer(float angle);
 	void _updateDirection();
 	void _fire();
 	void _removeBullet(unsigned int bulletIndex);
-	void _setWeapon(Weapon** weapon);
+	void _setWeapon(int weaponIndex);
 
-	Weapon* m_weapon1;
-	Weapon* m_weapon2;
-	Weapon* m_weapon3;
-	Weapon* m_weapon4;
-	Weapon** m_selectedWeapon;
+	Weapon* m_weapons[NB_MAX_WEAPONS];
+	int m_selectedWeapon;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
 	std::vector<Bullet*> m_vBullets;
