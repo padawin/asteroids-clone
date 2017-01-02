@@ -26,13 +26,15 @@ class Engine {
 	AsteroidGenerator m_asteroidGenerator;
 	EntityCollection m_entityCollection;
 
+	bool m_bIsRunning;
+
 	int _initSDL(const char* title, const int x, const int y, const int w, const int h);
 	void _initGL();
 	void _generateEntities();
 	void _createShaders();
 	void _createTextures();
 	void _createShapes();
-	bool _handleEvents();
+	void _handleEvents();
 	void _update();
 	void _setCamera();
 	void _setFieldOfView();

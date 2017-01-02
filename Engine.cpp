@@ -23,9 +23,9 @@ void Engine::init(unsigned int screenWidth, unsigned int screenHeight) {
 
 void Engine::run() {
 	_generateEntities();
-	bool running = true;
-	while (running) {
-		running = _handleEvents();
+	m_bIsRunning = true;
+	while (m_bIsRunning) {
+		_handleEvents();
 
 		_update();
 
@@ -193,14 +193,12 @@ void Engine::_generateEntities() {
 	);
 }
 
-bool Engine::_handleEvents() {
+void Engine::_handleEvents() {
 	SDL_Event event;
-	bool running = true;
-
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_QUIT:
-				running = false;
+				m_bIsRunning = false;
 				break;
 
 			case SDL_KEYDOWN:
@@ -252,8 +250,6 @@ bool Engine::_handleEvents() {
 				break;
 		}
 	}
-
-	return running;
 }
 
 void Engine::_update() {
