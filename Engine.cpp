@@ -308,6 +308,7 @@ void Engine::_render() {
 
 	glUniform1i(glGetUniformLocation(m_shaderProgram, "time"), SDL_GetTicks());
 	m_entityCollection.render(m_shaderProgram, m_renderables);
+	m_world.render(m_shaderProgram, m_renderables);
 
 	SDL_GL_SwapWindow(m_window);
 }
