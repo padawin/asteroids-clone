@@ -22,6 +22,7 @@ void Engine::init(unsigned int screenWidth, unsigned int screenHeight) {
 }
 
 void Engine::run() {
+	m_world.setNbMaxEntities(NB_MAX_ENTITIES);
 	_generateEntities();
 	m_bIsPaused = false;
 	m_bIsRunning = true;
