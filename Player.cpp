@@ -7,11 +7,11 @@
 
 #define ACCELERATION_COEFFICIENT 0.002
 
-Player::Player() : m_selectedWeapon(&m_weapon1) {
-	m_weapon1 = new Gun();
-	m_weapon2 = new MissileLauncher();
-	m_weapon3 = NULL;
-	m_weapon4 = NULL;
+Player::Player() : m_selectedWeapon(0) {
+	m_weapons[0] = new Gun();
+	m_weapons[1] = new MissileLauncher();
+	m_weapons[2] = NULL;
+	m_weapons[3] = NULL;
 }
 
 ShapeType Player::getShapeType() {
@@ -80,9 +80,16 @@ void Player::steerRight(bool activate) {
 }
 
 void Player::_fire() {
-	m_vBullets.push_back(
-		(*m_selectedWeapon)->fire(m_VPosition, m_VDirection, m_VSpeed, m_VAngle)
+	Bullet* b = m_weapons[m_selectedWeapon]->fire(
+		m_VPosition,
+		m_VDirection,
+		m_VSpeed,
+		m_VAngle
 	);
+
+	if (b != NULL) {
+		m_vBullets.push_back(b);
+	}
 }
 
 void Player::openFire() {
@@ -93,28 +100,28 @@ void Player::ceaseFire() {
 	m_bIsFiring = false;
 }
 
-void Player::_setWeapon(Weapon** weapon) {
-	if (*weapon == NULL) {
+void Player::_setWeapon(int weaponIndex) {
+	if (weaponIndex >= NB_MAX_WEAPONS || m_weapons[weaponIndex] == NULL) {
 		return;
 	}
 
-	m_selectedWeapon = weapon;
+	m_selectedWeapon = weaponIndex;
 }
 
 void Player::setWeapon1() {
-	_setWeapon(&m_weapon1);
+	_setWeapon(0);
 }
 
 void Player::setWeapon2() {
-	_setWeapon(&m_weapon2);
+	_setWeapon(1);
 }
 
 void Player::setWeapon3() {
-	_setWeapon(&m_weapon3);
+	_setWeapon(2);
 }
 
 void Player::setWeapon4() {
-	_setWeapon(&m_weapon4);
+	_setWeapon(3);
 }
 
 std::vector<Bullet*> Player::getBullets() {
