@@ -8,3 +8,13 @@ Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle) 
 ShapeType Asteroid::getShapeType() {
 	return ASTEROID;
 }
+
+bool Asteroid::update(World& world, Vector3D thresholdPosition) {
+	Vector3D distance = getPosition() - thresholdPosition;
+	if (distance.getLength() > m_fDistanceRecycle) {
+		return false;
+	}
+	else {
+		return Entity::update(world, thresholdPosition);
+	}
+}

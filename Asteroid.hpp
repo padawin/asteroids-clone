@@ -10,6 +10,7 @@ class Asteroid : public Entity {
 	public:
 	Asteroid(float distanceRecycle);
 	ShapeType getShapeType();
+	bool update(World& world, Vector3D thresholdPosition);
 };
 
 #endif
