@@ -21,6 +21,7 @@ class World {
 	bool addCappedEntity(Entity* entity);
 	void update(Vector3D playerPosition);
 	void render(GLuint shaderProgram, ShapeCollection shapes);
+	void clean();
 };
 
 #endif

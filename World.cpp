@@ -41,3 +41,12 @@ void World::update(Vector3D playerPosition) {
 void World::render(GLuint shaderProgram, ShapeCollection shapes) {
 	m_renderables.render(shaderProgram, shapes);
 }
+
+void World::clean() {
+	for (std::vector<Entity*>::size_type i = 0; i < m_vEntities.size(); ++i) {
+		free(m_vEntities[i]);
+	}
+	for (std::vector<Entity*>::size_type i = 0; i < m_vCappedEntities.size(); ++i) {
+		free(m_vCappedEntities[i]);
+	}
+}

@@ -44,6 +44,7 @@ void Engine::clean() {
 	glDeleteShader(m_fragmentShader);
 	glDeleteShader(m_vertexShader);
 	m_renderables.clean();
+	m_world.clean();
 	_cleanSDL();
 }
 
