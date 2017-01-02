@@ -18,8 +18,8 @@ ShapeType Player::getShapeType() {
 	return SHIP;
 }
 
-void Player::update() {
-	Entity::update();
+bool Player::update(World& world, Vector3D position) {
+	Entity::update(world, position);
 
 	if (m_fSteerAngle != 0.0f) {
 		_updateDirection();
@@ -38,9 +38,11 @@ void Player::update() {
 
 	for (int w = 0; w < NB_MAX_WEAPONS; ++w) {
 		if (m_weapons[w] != NULL) {
-			m_weapons[w]->update();
+			m_weapons[w]->update(world, position);
 		}
 	}
+
+	return true;
 }
 
 void Player::_removeBullet(unsigned int bulletIndex) {

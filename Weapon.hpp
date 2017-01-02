@@ -12,7 +12,7 @@ class Weapon {
 
 	public:
 	virtual Bullet* fire(Vector3D position, Vector3D direction, Vector3D initialSpeed, Vector3D angle);
-	void update();
+	void update(World& world, Vector3D referencePosition);
 };
 
 #endif

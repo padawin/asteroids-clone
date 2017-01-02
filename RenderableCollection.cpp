@@ -13,10 +13,10 @@ void RenderableCollection::flush() {
 	m_mEntities.clear();
 }
 
-void RenderableCollection::update() {
+void RenderableCollection::update(World& world, Vector3D position) {
 	for (auto& it : m_mEntities) {
 		for (auto &itEntity : it.second) {
-			itEntity->update();
+			itEntity->update(world, position);
 		}
 	}
 }

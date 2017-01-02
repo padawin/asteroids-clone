@@ -276,7 +276,7 @@ void Engine::_update() {
 	for (auto& asteroid : m_asteroidGenerator.getAsteroids()) {
 		m_entityCollection.addEntity(asteroid);
 	}
-	m_entityCollection.update();
+	m_entityCollection.update(m_world, m_player.getPosition());
 }
 
 // Needs to provide player's information

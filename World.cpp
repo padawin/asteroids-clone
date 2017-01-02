@@ -7,7 +7,7 @@ void World::addEntity(Entity* entity) {
 void World::update(Vector3D playerPosition) {
 	m_renderables.flush();
 	for (std::vector<Entity*>::size_type i = 0; i < m_vEntities.size(); ++i) {
-		m_vEntities[i]->update();
+		m_vEntities[i]->update(*this, playerPosition);
 		m_renderables.addEntity(m_vEntities.at(i));
 	}
 }

@@ -29,7 +29,7 @@ class Player : public Entity {
 	void reverseThrust(bool activate);
 	void steerLeft(bool activate);
 	void steerRight(bool activate);
-	void update();
+	bool update(World& world, Vector3D position);
 	void openFire();
 	void ceaseFire();
 	void setWeapon1();
