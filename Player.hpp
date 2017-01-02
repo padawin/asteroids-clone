@@ -3,6 +3,7 @@
 
 #include "Entity.hpp"
 #include "Bullet.hpp"
+#include "Weapon.hpp"
 #include <vector>
 
 class Player : public Entity {
@@ -12,12 +13,13 @@ class Player : public Entity {
 	void _fire();
 	void _removeBullet(unsigned int bulletIndex);
 
-	BulletType m_selectedWeapon = TYPE_GUN;
+	Weapon* m_weapon1;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
 	std::vector<Bullet*> m_vBullets;
 
 	public:
+	Player();
 	ShapeType getShapeType();
 	void thrust(bool activate);
 	void reverseThrust(bool activate);
