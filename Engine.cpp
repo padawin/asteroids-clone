@@ -267,6 +267,7 @@ void Engine::_update() {
 	}
 
 	m_asteroidGenerator.update(m_player.getPosition());
+	m_world.update(m_player.getPosition());
 	m_entityCollection.flush();
 	m_entityCollection.addEntity(&m_player);
 	for (auto& bullet : m_player.getBullets()) {

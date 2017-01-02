@@ -6,6 +6,7 @@
 #include "config.h"
 #include "RenderableCollection.hpp"
 #include "ShapeCollection.hpp"
+#include "World.hpp"
 #include "Player.hpp"
 #include "AsteroidGenerator.hpp"
 
@@ -18,6 +19,7 @@ class Engine {
 	SDL_Window* m_window;
 	SDL_GLContext m_context;
 	ShapeCollection m_renderables;
+	World m_world;
 	GLuint m_vertexShader;
 	GLuint m_fragmentShader;
 	GLuint m_shaderProgram;
