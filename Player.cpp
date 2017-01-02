@@ -76,7 +76,7 @@ void Player::steerRight(bool activate) {
 
 void Player::_fire(World& world) {
 	Bullet* b = m_weapons[m_selectedWeapon]->fire(
-		m_VPosition,
+		m_VPosition + m_VDirection * 2.0f,
 		m_VDirection,
 		m_VSpeed,
 		m_VAngle
