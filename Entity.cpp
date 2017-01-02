@@ -65,11 +65,12 @@ Vector3D Entity::getAngle() {
 	return m_VAngle;
 }
 
-void Entity::update() {
+bool Entity::update(World& world, Vector3D position) {
 	m_VSpeed += m_VAcceleration;
 	m_VPosition += m_VSpeed;
 	m_VAngularSpeed += m_VAngularAcceleration;
 	m_VAngle += m_VAngularSpeed;
+	return true;
 }
 
 glm::mat4 Entity::getTransformationMatrix() {

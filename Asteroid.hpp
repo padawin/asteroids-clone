@@ -4,9 +4,13 @@
 #include "Entity.hpp"
 
 class Asteroid : public Entity {
+	protected:
+	float m_fDistanceRecycle;
+
 	public:
-	Asteroid();
+	Asteroid(float distanceRecycle);
 	ShapeType getShapeType();
+	bool update(World& world, Vector3D thresholdPosition);
 };
 
 #endif

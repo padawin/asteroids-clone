@@ -1,4 +1,15 @@
 #include "Bullet.hpp"
+#include "config.h"
+
+bool Bullet::update(World& world, Vector3D referencePosition) {
+	Vector3D distance = getPosition() - referencePosition;
+	if (distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
+		return false;
+	}
+	else {
+		return Entity::update(world, referencePosition);
+	}
+}
 
 ShapeType GunBullet::getShapeType() {
 	return GUN_BULLET;

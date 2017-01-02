@@ -15,7 +15,7 @@ Bullet* Weapon::fire(Vector3D position, Vector3D direction, Vector3D initialSpee
 	return b;
 }
 
-void Weapon::update() {
+void Weapon::update(World& world, Vector3D referencePosition) {
 	if (m_iReloadedPercent > 100) {
 		m_iReloadedPercent = 100;
 	}

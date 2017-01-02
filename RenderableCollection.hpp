@@ -14,7 +14,7 @@ class RenderableCollection {
 	public:
 	void addEntity(Entity *entity);
 	void flush();
-	void update();
+	void update(World& world, Vector3D position);
 	void render(GLuint shaderProgram, ShapeCollection shapes);
 };
 

@@ -6,6 +6,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+class World;
+
 #include "Vector3D.hpp"
 #include "ShapeFactory.hpp"
 
@@ -32,7 +34,7 @@ class Entity {
 	Vector3D getAngularAcceleration();
 	Vector3D getAngularSpeed();
 	Vector3D getAngle();
-	virtual void update();
+	virtual bool update(World& world, Vector3D position);
 	glm::mat4 getTransformationMatrix();
 	virtual ShapeType getShapeType() = 0;
 };

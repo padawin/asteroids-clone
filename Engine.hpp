@@ -6,6 +6,7 @@
 #include "config.h"
 #include "RenderableCollection.hpp"
 #include "ShapeCollection.hpp"
+#include "World.hpp"
 #include "Player.hpp"
 #include "AsteroidGenerator.hpp"
 
@@ -18,13 +19,13 @@ class Engine {
 	SDL_Window* m_window;
 	SDL_GLContext m_context;
 	ShapeCollection m_renderables;
+	World m_world;
 	GLuint m_vertexShader;
 	GLuint m_fragmentShader;
 	GLuint m_shaderProgram;
 
-	Player m_player;
+	Player* m_player;
 	AsteroidGenerator m_asteroidGenerator;
-	RenderableCollection m_entityCollection;
 
 	bool m_bIsPaused;
 	bool m_bPauseButtonReleased;

@@ -18,35 +18,24 @@ ShapeType Player::getShapeType() {
 	return SHIP;
 }
 
-void Player::update() {
-	Entity::update();
+bool Player::update(World& world, Vector3D position) {
+	Entity::update(world, position);
 
 	if (m_fSteerAngle != 0.0f) {
 		_updateDirection();
 	}
 
 	if (m_bIsFiring) {
-		_fire();
-	}
-
-	for (std::vector<Entity*>::size_type i = 0; i < m_vBullets.size(); ++i) {
-		Vector3D distance = m_vBullets.at(i)->getPosition() - m_VPosition;
-		if (distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
-			_removeBullet(i);
-		}
+		_fire(world);
 	}
 
 	for (int w = 0; w < NB_MAX_WEAPONS; ++w) {
 		if (m_weapons[w] != NULL) {
-			m_weapons[w]->update();
+			m_weapons[w]->update(world, position);
 		}
 	}
-}
 
-void Player::_removeBullet(unsigned int bulletIndex) {
-	free(m_vBullets[bulletIndex]);
-	m_vBullets[bulletIndex] = m_vBullets.back();
-	m_vBullets.pop_back();
+	return true;
 }
 
 void Player::_updateDirection() {
@@ -85,7 +74,7 @@ void Player::steerRight(bool activate) {
 	_steer(activate ? -2.0f : 0.0f);
 }
 
-void Player::_fire() {
+void Player::_fire(World& world) {
 	Bullet* b = m_weapons[m_selectedWeapon]->fire(
 		m_VPosition,
 		m_VDirection,
@@ -94,7 +83,7 @@ void Player::_fire() {
 	);
 
 	if (b != NULL) {
-		m_vBullets.push_back(b);
+		world.addEntity(b);
 	}
 }
 
@@ -128,14 +117,4 @@ void Player::setWeapon3() {
 
 void Player::setWeapon4() {
 	_setWeapon(3);
-}
-
-std::vector<Bullet*> Player::getBullets() {
-	return m_vBullets;
-}
-
-void Player::clean() {
-	for (auto& bullet : m_vBullets) {
-		free(bullet);
-	}
 }

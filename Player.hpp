@@ -1,6 +1,7 @@
 #ifndef __PLAYER__
 #define __PLAYER__
 
+#include "World.hpp"
 #include "Entity.hpp"
 #include "Bullet.hpp"
 #include "Weapon.hpp"
@@ -12,7 +13,7 @@ class Player : public Entity {
 	private:
 	void _steer(float angle);
 	void _updateDirection();
-	void _fire();
+	void _fire(World& world);
 	void _removeBullet(unsigned int bulletIndex);
 	void _setWeapon(int weaponIndex);
 
@@ -20,7 +21,6 @@ class Player : public Entity {
 	int m_selectedWeapon;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
-	std::vector<Bullet*> m_vBullets;
 
 	public:
 	Player();
@@ -29,14 +29,13 @@ class Player : public Entity {
 	void reverseThrust(bool activate);
 	void steerLeft(bool activate);
 	void steerRight(bool activate);
-	void update();
+	bool update(World& world, Vector3D position);
 	void openFire();
 	void ceaseFire();
 	void setWeapon1();
 	void setWeapon2();
 	void setWeapon3();
 	void setWeapon4();
-	std::vector<Bullet*> getBullets();
 	void clean();
 };
 
