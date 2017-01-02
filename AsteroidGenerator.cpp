@@ -17,7 +17,7 @@ void AsteroidGenerator::addAsteroid(Vector3D position) {
 		return;
 	}
 
-	Asteroid *asteroid = new Asteroid();
+	Asteroid *asteroid = new Asteroid(m_fDistanceRecycle);
 	asteroid->setPosition(position);
 	// angle is between -2.0f and 2.0f degrees
 	float angularSpeedX = rand() % 4 - 2.0f,
