@@ -8,12 +8,13 @@ void World::addEntity(Entity* entity) {
 	m_vEntities.push_back(entity);
 }
 
-void World::addCappedEntity(Entity* entity) {
+bool World::addCappedEntity(Entity* entity) {
 	if (m_vCappedEntities.size() == m_iNbMaxEntities) {
-		return;
+		return false;
 	}
 
 	m_vCappedEntities.push_back(entity);
+	return true;
 }
 
 void World::_update(Vector3D playerPosition, std::vector<Entity*>* entities) {

@@ -18,7 +18,7 @@ class World {
 	public:
 	void setNbMaxEntities(unsigned int nbMaxEntities);
 	void addEntity(Entity* entity);
-	void addCappedEntity(Entity* entity);
+	bool addCappedEntity(Entity* entity);
 	void update(Vector3D playerPosition);
 	void render(GLuint shaderProgram, ShapeCollection shapes);
 };
