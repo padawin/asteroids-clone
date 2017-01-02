@@ -10,10 +10,10 @@
 class World {
 	private:
 	unsigned int m_iNbMaxEntities;
-	std::vector<Entity*> m_vEntities;
-	std::vector<Entity*> m_vCappedEntities;
+	unsigned int m_iNbCappedEntities = 0;
+	std::vector<std::pair<Entity*, bool>> m_vEntities;
 	RenderableCollection m_renderables;
-	void _update(Vector3D playerPosition, std::vector<Entity*>* entities);
+	void _update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool>>* entities);
 
 	public:
 	void setNbMaxEntities(unsigned int nbMaxEntities);
