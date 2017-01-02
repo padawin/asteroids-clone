@@ -1,9 +1,18 @@
 #include "config.h"
 #include "Player.hpp"
 #include "ShapeFactory.hpp"
+#include "Gun.hpp"
+#include "MissileLauncher.hpp"
 #include <math.h>
 
 #define ACCELERATION_COEFFICIENT 0.002
+
+Player::Player() : m_selectedWeapon(&m_weapon1) {
+	m_weapon1 = new Gun();
+	m_weapon2 = new MissileLauncher();
+	m_weapon3 = NULL;
+	m_weapon4 = NULL;
+}
 
 ShapeType Player::getShapeType() {
 	return SHIP;
@@ -71,20 +80,9 @@ void Player::steerRight(bool activate) {
 }
 
 void Player::_fire() {
-	Bullet* b;
-	switch (m_selectedWeapon) {
-		case TYPE_GUN:
-			b = new GunBullet();
-			break;
-		case TYPE_MISSILE:
-			b = new Missile();
-			break;
-	}
-	b->setPosition(m_VPosition);
-	b->setDirection(m_VDirection);
-	Vector3D speed = m_VDirection * (m_VSpeed.getLength() + b->getSpeed());
-	b->setSpeed(speed);
-	m_vBullets.push_back(b);
+	m_vBullets.push_back(
+		(*m_selectedWeapon)->fire(m_VPosition, m_VDirection, m_VSpeed)
+	);
 }
 
 void Player::openFire() {
@@ -93,6 +91,30 @@ void Player::openFire() {
 
 void Player::ceaseFire() {
 	m_bIsFiring = false;
+}
+
+void Player::_setWeapon(Weapon** weapon) {
+	if (*weapon == NULL) {
+		return;
+	}
+
+	m_selectedWeapon = weapon;
+}
+
+void Player::setWeapon1() {
+	_setWeapon(&m_weapon1);
+}
+
+void Player::setWeapon2() {
+	_setWeapon(&m_weapon2);
+}
+
+void Player::setWeapon3() {
+	_setWeapon(&m_weapon3);
+}
+
+void Player::setWeapon4() {
+	_setWeapon(&m_weapon4);
 }
 
 std::vector<Bullet*> Player::getBullets() {
