@@ -5,7 +5,7 @@
 
 #include "config.h"
 #include "RenderableCollection.hpp"
-#include "EntityCollection.hpp"
+#include "ShapeCollection.hpp"
 #include "Player.hpp"
 #include "AsteroidGenerator.hpp"
 
@@ -17,14 +17,14 @@ class Engine {
 	private:
 	SDL_Window* m_window;
 	SDL_GLContext m_context;
-	RenderableCollection m_renderables;
+	ShapeCollection m_renderables;
 	GLuint m_vertexShader;
 	GLuint m_fragmentShader;
 	GLuint m_shaderProgram;
 
 	Player m_player;
 	AsteroidGenerator m_asteroidGenerator;
-	EntityCollection m_entityCollection;
+	RenderableCollection m_entityCollection;
 
 	bool m_bIsPaused;
 	bool m_bPauseButtonReleased;
