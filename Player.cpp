@@ -93,6 +93,30 @@ void Player::ceaseFire() {
 	m_bIsFiring = false;
 }
 
+void Player::_setWeapon(Weapon** weapon) {
+	if (*weapon == NULL) {
+		return;
+	}
+
+	m_selectedWeapon = weapon;
+}
+
+void Player::setWeapon1() {
+	_setWeapon(&m_weapon1);
+}
+
+void Player::setWeapon2() {
+	_setWeapon(&m_weapon2);
+}
+
+void Player::setWeapon3() {
+	_setWeapon(&m_weapon3);
+}
+
+void Player::setWeapon4() {
+	_setWeapon(&m_weapon4);
+}
+
 std::vector<Bullet*> Player::getBullets() {
 	return m_vBullets;
 }

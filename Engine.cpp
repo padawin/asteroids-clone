@@ -219,6 +219,18 @@ bool Engine::_handleEvents() {
 				else if (event.key.keysym.sym == SDLK_SPACE) {
 					m_player.openFire();
 				}
+				else if (event.key.keysym.sym == SDLK_1) {
+					m_player.setWeapon1();
+				}
+				else if (event.key.keysym.sym == SDLK_2) {
+					m_player.setWeapon2();
+				}
+				else if (event.key.keysym.sym == SDLK_3) {
+					m_player.setWeapon3();
+				}
+				else if (event.key.keysym.sym == SDLK_4) {
+					m_player.setWeapon4();
+				}
 				break;
 
 			case SDL_KEYUP:

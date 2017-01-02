@@ -12,6 +12,7 @@ class Player : public Entity {
 	void _updateDirection();
 	void _fire();
 	void _removeBullet(unsigned int bulletIndex);
+	void _setWeapon(Weapon** weapon);
 
 	Weapon* m_weapon1;
 	Weapon* m_weapon2;
@@ -32,6 +33,10 @@ class Player : public Entity {
 	void update();
 	void openFire();
 	void ceaseFire();
+	void setWeapon1();
+	void setWeapon2();
+	void setWeapon3();
+	void setWeapon4();
 	std::vector<Bullet*> getBullets();
 	void clean();
 };
