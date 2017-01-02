@@ -7,7 +7,7 @@
 
 #define ACCELERATION_COEFFICIENT 0.002
 
-Player::Player() {
+Player::Player() : m_selectedWeapon(&m_weapon1) {
 	m_weapon1 = new Gun();
 	m_weapon2 = new MissileLauncher();
 	m_weapon3 = NULL;
@@ -81,7 +81,7 @@ void Player::steerRight(bool activate) {
 
 void Player::_fire() {
 	m_vBullets.push_back(
-		m_weapon1->fire(m_VPosition, m_VDirection, m_VSpeed)
+		(*m_selectedWeapon)->fire(m_VPosition, m_VDirection, m_VSpeed)
 	);
 }
 

@@ -17,6 +17,7 @@ class Player : public Entity {
 	Weapon* m_weapon2;
 	Weapon* m_weapon3;
 	Weapon* m_weapon4;
+	Weapon** m_selectedWeapon;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
 	std::vector<Bullet*> m_vBullets;
