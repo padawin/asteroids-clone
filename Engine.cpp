@@ -23,7 +23,9 @@ void Engine::init(unsigned int screenWidth, unsigned int screenHeight) {
 
 void Engine::run() {
 	_generateEntities();
+	m_bIsPaused = false;
 	m_bIsRunning = true;
+	m_bPauseButtonReleased = true;
 	while (m_bIsRunning) {
 		_handleEvents();
 
@@ -229,6 +231,10 @@ void Engine::_handleEvents() {
 				else if (event.key.keysym.sym == SDLK_4) {
 					m_player.setWeapon4();
 				}
+				else if (event.key.keysym.sym == SDLK_p && m_bPauseButtonReleased) {
+					m_bIsPaused = !m_bIsPaused;
+					m_bPauseButtonReleased = false;
+				}
 				break;
 
 			case SDL_KEYUP:
@@ -247,12 +253,19 @@ void Engine::_handleEvents() {
 				else if (event.key.keysym.sym == SDLK_SPACE) {
 					m_player.ceaseFire();
 				}
+				else if (event.key.keysym.sym == SDLK_p) {
+					m_bPauseButtonReleased = true;
+				}
 				break;
 		}
 	}
 }
 
 void Engine::_update() {
+	if (m_bIsPaused) {
+		return;
+	}
+
 	m_asteroidGenerator.update(m_player.getPosition());
 	m_entityCollection.flush();
 	m_entityCollection.addEntity(&m_player);

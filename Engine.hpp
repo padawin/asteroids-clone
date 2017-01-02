@@ -26,6 +26,8 @@ class Engine {
 	AsteroidGenerator m_asteroidGenerator;
 	EntityCollection m_entityCollection;
 
+	bool m_bIsPaused;
+	bool m_bPauseButtonReleased;
 	bool m_bIsRunning;
 
 	int _initSDL(const char* title, const int x, const int y, const int w, const int h);
