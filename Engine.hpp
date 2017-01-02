@@ -26,7 +26,6 @@ class Engine {
 
 	Player* m_player;
 	AsteroidGenerator m_asteroidGenerator;
-	RenderableCollection m_entityCollection;
 
 	bool m_bIsPaused;
 	bool m_bPauseButtonReleased;

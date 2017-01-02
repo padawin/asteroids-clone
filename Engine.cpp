@@ -270,8 +270,6 @@ void Engine::_update() {
 
 	m_asteroidGenerator.update(m_world, m_player->getPosition());
 	m_world.update(m_player->getPosition());
-	m_entityCollection.flush();
-	m_entityCollection.update(m_world, m_player.getPosition());
 }
 
 // Needs to provide player's information
@@ -302,7 +300,6 @@ void Engine::_render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUniform1i(glGetUniformLocation(m_shaderProgram, "time"), SDL_GetTicks());
-	m_entityCollection.render(m_shaderProgram, m_renderables);
 	m_world.render(m_shaderProgram, m_renderables);
 
 	SDL_GL_SwapWindow(m_window);
