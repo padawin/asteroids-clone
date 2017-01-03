@@ -21,7 +21,11 @@ bool World::addCappedEntity(Entity* entity) {
 void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool>>* entities) {
 	std::vector<Entity*>::size_type i = 0;
 	while (i < entities->size()) {
-		if (!entities->at(i).first->update(*this, playerPosition)) {
+		if (entities->at(i).first->update(*this, playerPosition)) {
+			m_renderables.addEntity(entities->at(i).first);
+			++i;
+		}
+		else {
 			// this is a capped entity
 			if (entities->at(i).second) {
 				--m_iNbCappedEntities;
@@ -29,10 +33,6 @@ void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool
 			free(entities->at(i).first);
 			entities->at(i) = entities->back();
 			entities->pop_back();
-		}
-		else {
-			m_renderables.addEntity(entities->at(i).first);
-			++i;
 		}
 	}
 }
