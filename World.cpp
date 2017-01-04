@@ -1,4 +1,6 @@
 #include "World.hpp"
+#include "config.h"
+#include "QuadTree.hpp"
 
 void World::setNbMaxEntities(unsigned int nbMaxEntities) {
 	m_iNbMaxEntities = nbMaxEntities;
@@ -19,10 +21,19 @@ bool World::addCappedEntity(Entity* entity) {
 }
 
 void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool>>* entities) {
+	S_Rectangle treeZone;
+	treeZone.x = playerPosition.getX() - MAX_DISTANCE_FROM_PLAYER;
+	treeZone.y = playerPosition.getY() - MAX_DISTANCE_FROM_PLAYER;
+	treeZone.width = MAX_DISTANCE_FROM_PLAYER * 2;
+	treeZone.height = MAX_DISTANCE_FROM_PLAYER * 2;
+	QuadTree tree = QuadTree(0, treeZone);
+
+	// update entities
 	std::vector<Entity*>::size_type i = 0;
 	while (i < entities->size()) {
 		if (entities->at(i).first->update(*this, playerPosition)) {
 			m_renderables.addEntity(entities->at(i).first);
+			tree.insert(entities->at(i).first);
 			++i;
 		}
 		else {
