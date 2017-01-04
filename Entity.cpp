@@ -105,3 +105,9 @@ glm::mat4 Entity::getTransformationMatrix() {
 
 	return trans;
 }
+
+bool Entity::collidesWith(Entity* entity) {
+	float minDist = entity->getHitZone().radius + getHitZone().radius;
+	Vector3D vectSeparation = entity->getPosition() - getPosition();
+	return minDist > vectSeparation.getLength();
+}

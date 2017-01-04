@@ -14,6 +14,7 @@ class World {
 	std::vector<std::pair<Entity*, bool>> m_vEntities;
 	RenderableCollection m_renderables;
 	void _update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool>>* entities);
+	void _handleCollision(Entity* entity1, Entity* entity2);
 
 	public:
 	void setNbMaxEntities(unsigned int nbMaxEntities);

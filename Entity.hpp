@@ -41,6 +41,7 @@ class Entity {
 	virtual ShapeType getShapeType() = 0;
 	virtual S_Circle getHitZone() = 0;
 	virtual E_EntityType getType() = 0;
+	bool collidesWith(Entity* entity);
 };
 
 #endif
