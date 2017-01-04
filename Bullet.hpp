@@ -10,6 +10,7 @@ class Bullet : public Entity {
 	virtual float getSpeed() = 0;
 	bool update(World& world, Vector3D referencePosition);
 	S_Circle getHitZone();
+	E_EntityType getType();
 };
 
 class GunBullet : public Bullet {

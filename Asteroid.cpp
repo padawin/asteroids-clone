@@ -28,3 +28,7 @@ S_Circle Asteroid::getHitZone() {
 
 	return hz;
 }
+
+E_EntityType Asteroid::getType() {
+	return ENTITY_ASTEROID;
+}

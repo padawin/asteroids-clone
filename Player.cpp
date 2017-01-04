@@ -128,3 +128,7 @@ S_Circle Player::getHitZone() {
 
 	return hz;
 }
+
+E_EntityType Player::getType() {
+	return ENTITY_SHIP;
+}

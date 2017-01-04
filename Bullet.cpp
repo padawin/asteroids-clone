@@ -21,6 +21,10 @@ S_Circle Bullet::getHitZone() {
 	return hz;
 }
 
+E_EntityType Bullet::getType() {
+	return ENTITY_BULLET;
+}
+
 ShapeType GunBullet::getShapeType() {
 	return GUN_BULLET;
 }

@@ -38,6 +38,7 @@ class Player : public Entity {
 	void setWeapon4();
 	void clean();
 	S_Circle getHitZone();
+	E_EntityType getType();
 };
 
 #endif
