@@ -11,6 +11,16 @@ bool Bullet::update(World& world, Vector3D referencePosition) {
 	}
 }
 
+S_Circle Bullet::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 1.0f
+	};
+
+	return hz;
+}
+
 ShapeType GunBullet::getShapeType() {
 	return GUN_BULLET;
 }

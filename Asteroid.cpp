@@ -18,3 +18,13 @@ bool Asteroid::update(World& world, Vector3D thresholdPosition) {
 		return Entity::update(world, thresholdPosition);
 	}
 }
+
+S_Circle Asteroid::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 1.0f
+	};
+
+	return hz;
+}

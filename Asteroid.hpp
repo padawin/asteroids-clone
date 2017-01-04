@@ -11,6 +11,7 @@ class Asteroid : public Entity {
 	Asteroid(float distanceRecycle);
 	ShapeType getShapeType();
 	bool update(World& world, Vector3D thresholdPosition);
+	S_Circle getHitZone();
 };
 
 #endif
