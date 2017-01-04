@@ -14,13 +14,13 @@ class QuadTree {
 	std::vector<Entity*> m_vObjects;
 	S_Rectangle m_bounds;
 	QuadTree* m_nodes[4];
+	void _split();
+	int _getIndex(S_Circle zone);
 
 	public:
 	QuadTree(int level, S_Rectangle bounds);
 	~QuadTree();
 	void clear();
-	void split();
-	int getIndex(S_Circle zone);
 	void insert(Entity* entity);
 	std::vector<Entity*> retrieve(Entity* entity);
 };

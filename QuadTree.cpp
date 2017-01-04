@@ -12,7 +12,7 @@ QuadTree::~QuadTree() {
 	clear();
 }
 
-void QuadTree::split() {
+void QuadTree::_split() {
 	float subWidth = m_bounds.width / 2;
 	float subHeight = m_bounds.height / 2;
 	float x = m_bounds.x;
@@ -42,7 +42,7 @@ void QuadTree::clear() {
  * object cannot completely fit within a child node and is part
  * of the parent node
  */
-int QuadTree::getIndex(S_Circle zone) {
+int QuadTree::_getIndex(S_Circle zone) {
 	int index = -1;
 	double verticalMidpoint = m_bounds.x + (m_bounds.width / 2);
 	double horizontalMidpoint = m_bounds.y + (m_bounds.height / 2);
@@ -85,7 +85,7 @@ int QuadTree::getIndex(S_Circle zone) {
  */
 void QuadTree::insert(Entity* entity) {
 	if (m_nodes[0] != NULL) {
-		int index = getIndex(entity->getHitZone());
+		int index = _getIndex(entity->getHitZone());
 
 		if (index != -1) {
 			m_nodes[index]->insert(entity);
@@ -97,12 +97,12 @@ void QuadTree::insert(Entity* entity) {
 
 	if (m_vObjects.size() > MAX_OBJECTS && m_iLevel < MAX_LEVELS) {
 		if (m_nodes[0] == NULL) {
-			split();
+			_split();
 		}
 
 		std::vector<Entity*>::size_type i = 0;
 		while (i < m_vObjects.size()) {
-			int index = getIndex(m_vObjects[i]->getHitZone());
+			int index = _getIndex(m_vObjects[i]->getHitZone());
 			if (index != -1) {
 				m_nodes[index]->insert(m_vObjects[i]);
 				m_vObjects.erase(m_vObjects.begin() + i, m_vObjects.begin() + i + 1);
@@ -118,7 +118,7 @@ void QuadTree::insert(Entity* entity) {
  * Return all objects that could collide with the given object
  */
 std::vector<Entity*> QuadTree::retrieve(Entity* entity) {
-	int index = getIndex(entity->getHitZone());
+	int index = _getIndex(entity->getHitZone());
 	std::vector<Entity*> returnObjects;
 	if (index != -1 && m_nodes[0] != NULL) {
 		returnObjects = m_nodes[index]->retrieve(entity);
