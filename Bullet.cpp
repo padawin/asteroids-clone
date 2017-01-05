@@ -33,10 +33,18 @@ float GunBullet::getSpeed() {
 	return 0.2f;
 }
 
+int GunBullet::getDamages() {
+	return 10;
+}
+
 ShapeType Missile::getShapeType() {
 	return MISSILE;
 }
 
 float Missile::getSpeed() {
 	return 0.3f;
+}
+
+int Missile::getDamages() {
+	return 100;
 }
