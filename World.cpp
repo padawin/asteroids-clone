@@ -52,13 +52,10 @@ void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool
 		std::vector<Entity*> collisionCandidates = tree.retrieve(entity.first);
 		for (auto candidate : collisionCandidates) {
 			if (candidate != entity.first && entity.first->collidesWith(candidate)) {
-				_handleCollision(entity.first, candidate);
+				entity.first->handleCollision(candidate);
 			}
 		}
 	}
-}
-
-void World::_handleCollision(Entity* entity1, Entity* entity2) {
 }
 
 void World::update(Vector3D playerPosition) {

@@ -14,6 +14,7 @@ class Asteroid : public Entity {
 	bool update(World& world, Vector3D thresholdPosition);
 	S_Circle getHitZone();
 	E_EntityType getType();
+	void handleCollision(Entity* entity);
 };
 
 #endif

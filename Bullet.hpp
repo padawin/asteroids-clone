@@ -15,6 +15,7 @@ class Bullet : public Entity {
 	S_Circle getHitZone();
 	E_EntityType getType();
 	virtual int getDamages() = 0;
+	void handleCollision(Entity* entity);
 };
 
 class GunBullet : public Bullet {

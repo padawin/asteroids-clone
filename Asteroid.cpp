@@ -35,3 +35,6 @@ S_Circle Asteroid::getHitZone() {
 E_EntityType Asteroid::getType() {
 	return ENTITY_ASTEROID;
 }
+
+void Asteroid::handleCollision(Entity* entity) {
+}

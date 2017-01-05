@@ -25,6 +25,9 @@ E_EntityType Bullet::getType() {
 	return ENTITY_BULLET;
 }
 
+void Bullet::handleCollision(Entity* entity) {
+}
+
 ShapeType GunBullet::getShapeType() {
 	return GUN_BULLET;
 }
