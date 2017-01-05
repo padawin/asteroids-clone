@@ -3,7 +3,7 @@
 #include "ShapeFactory.hpp"
 
 Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle), m_iHP(100) {
-	setCenter(Vector3D(0.5f, 0.5f, 0.5f));
+	setCenter(Vector3D(0.0f, 0.0f, 0.0f));
 }
 
 ShapeType Asteroid::getShapeType() {
