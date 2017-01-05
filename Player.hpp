@@ -39,6 +39,7 @@ class Player : public Entity {
 	void clean();
 	S_Circle getHitZone();
 	E_EntityType getType();
+	void handleCollision(Entity* entity);
 };
 
 #endif

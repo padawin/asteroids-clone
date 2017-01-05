@@ -3,7 +3,7 @@
 
 bool Bullet::update(World& world, Vector3D referencePosition) {
 	Vector3D distance = getPosition() - referencePosition;
-	if (distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
+	if (m_bDestroyed || distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
 		return false;
 	}
 	else {
@@ -23,6 +23,12 @@ S_Circle Bullet::getHitZone() {
 
 E_EntityType Bullet::getType() {
 	return ENTITY_BULLET;
+}
+
+void Bullet::handleCollision(Entity* entity) {
+	if (entity->getType() != ENTITY_BULLET) {
+		m_bDestroyed = true;
+	}
 }
 
 ShapeType GunBullet::getShapeType() {

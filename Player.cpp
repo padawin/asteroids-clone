@@ -132,3 +132,6 @@ S_Circle Player::getHitZone() {
 E_EntityType Player::getType() {
 	return ENTITY_SHIP;
 }
+
+void Player::handleCollision(Entity* entity) {
+}
