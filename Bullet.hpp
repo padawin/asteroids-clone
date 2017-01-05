@@ -11,18 +11,21 @@ class Bullet : public Entity {
 	bool update(World& world, Vector3D referencePosition);
 	S_Circle getHitZone();
 	E_EntityType getType();
+	virtual int getDamages() = 0;
 };
 
 class GunBullet : public Bullet {
 	public:
 	float getSpeed();
 	ShapeType getShapeType();
+	int getDamages();
 };
 
 class Missile : public Bullet {
 	public:
 	float getSpeed();
 	ShapeType getShapeType();
+	int getDamages();
 };
 
 #endif
