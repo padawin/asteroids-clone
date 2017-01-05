@@ -3,7 +3,7 @@
 
 bool Bullet::update(World& world, Vector3D referencePosition) {
 	Vector3D distance = getPosition() - referencePosition;
-	if (distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
+	if (m_bDestroyed || distance.getLength() > MAX_DISTANCE_FROM_PLAYER) {
 		return false;
 	}
 	else {
