@@ -26,6 +26,9 @@ E_EntityType Bullet::getType() {
 }
 
 void Bullet::handleCollision(Entity* entity) {
+	if (entity->getType() != ENTITY_BULLET) {
+		m_bDestroyed = true;
+	}
 }
 
 ShapeType GunBullet::getShapeType() {
