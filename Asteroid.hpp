@@ -6,6 +6,7 @@
 class Asteroid : public Entity {
 	protected:
 	float m_fDistanceRecycle;
+	int m_iHP;
 
 	public:
 	Asteroid(float distanceRecycle);

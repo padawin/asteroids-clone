@@ -1,7 +1,7 @@
 #include "Asteroid.hpp"
 #include "ShapeFactory.hpp"
 
-Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle) {
+Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle), m_iHP(100) {
 	setCenter(Vector3D(0.5f, 0.5f, 0.5f));
 }
 
@@ -10,8 +10,11 @@ ShapeType Asteroid::getShapeType() {
 }
 
 bool Asteroid::update(World& world, Vector3D thresholdPosition) {
+	if (m_iHP < 0) {
+		m_iHP = 0;
+	}
 	Vector3D distance = getPosition() - thresholdPosition;
-	if (distance.getLength() > m_fDistanceRecycle) {
+	if (m_iHP == 0 || distance.getLength() > m_fDistanceRecycle) {
 		return false;
 	}
 	else {
