@@ -1,4 +1,5 @@
 #include "Asteroid.hpp"
+#include "Bullet.hpp"
 #include "ShapeFactory.hpp"
 
 Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle), m_iHP(100) {
@@ -37,4 +38,12 @@ E_EntityType Asteroid::getType() {
 }
 
 void Asteroid::handleCollision(Entity* entity) {
+	switch (entity->getType()) {
+		case ENTITY_BULLET:
+			// destroyed
+			m_iHP -= dynamic_cast<Bullet*>(entity)->getDamages();
+			break;
+		default:
+			break;
+	}
 }
