@@ -2,7 +2,7 @@
 #include "Bullet.hpp"
 #include "ShapeFactory.hpp"
 
-Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle), m_iHP(100) {
+Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle) {
 	setCenter(Vector3D(0.0f, 0.0f, 0.0f));
 	// angle is between -2.0f and 2.0f degrees
 	float angularSpeedX = rand() % 4 - 2.0f,
@@ -21,10 +21,6 @@ Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle),
 	));
 }
 
-ShapeType Asteroid::getShapeType() {
-	return ASTEROID;
-}
-
 bool Asteroid::update(World& world, Vector3D thresholdPosition) {
 	if (m_iHP < 0) {
 		m_iHP = 0;
@@ -36,16 +32,6 @@ bool Asteroid::update(World& world, Vector3D thresholdPosition) {
 	else {
 		return Entity::update(world, thresholdPosition);
 	}
-}
-
-S_Circle Asteroid::getHitZone() {
-	S_Circle hz = {
-		.x = getPosition().getX(),
-		.y = getPosition().getY(),
-		.radius = 0.5f
-	};
-
-	return hz;
 }
 
 E_EntityType Asteroid::getType() {
@@ -61,4 +47,58 @@ void Asteroid::handleCollision(Entity* entity) {
 		default:
 			break;
 	}
+}
+
+AsteroidLarge::AsteroidLarge(float distanceRecycle) : Asteroid(distanceRecycle) {
+	m_iHP = 150;
+}
+
+S_Circle AsteroidLarge::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 1.0f
+	};
+
+	return hz;
+}
+
+ShapeType AsteroidLarge::getShapeType() {
+	return ASTEROID_LARGE;
+}
+
+AsteroidMedium::AsteroidMedium(float distanceRecycle) : Asteroid(distanceRecycle) {
+	m_iHP = 75;
+}
+
+S_Circle AsteroidMedium::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 0.5f
+	};
+
+	return hz;
+}
+
+ShapeType AsteroidMedium::getShapeType() {
+	return ASTEROID_MEDIUM;
+}
+
+AsteroidSmall::AsteroidSmall(float distanceRecycle) : Asteroid(distanceRecycle) {
+	m_iHP = 25;
+}
+
+S_Circle AsteroidSmall::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 0.25f
+	};
+
+	return hz;
+}
+
+ShapeType AsteroidSmall::getShapeType() {
+	return ASTEROID_SMALL;
 }
