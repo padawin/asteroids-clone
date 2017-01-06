@@ -276,7 +276,7 @@ void Engine::_update() {
 void Engine::_setCamera() {
 	glm::mat4 view = glm::lookAt(
 		// camera's position
-		glm::vec3(m_player->getPosition().getX(), m_player->getPosition().getY(), 15.0f),
+		glm::vec3(m_player->getPosition().getX(), m_player->getPosition().getY(), 30.0f),
 		// point where the camera is aiming at (eg player's position)
 		glm::vec3(m_player->getPosition().getX(), m_player->getPosition().getY(), m_player->getPosition().getZ()),
 		// "up" vector of the camera, for its orientation, based on player's
