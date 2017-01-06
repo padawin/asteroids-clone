@@ -13,7 +13,17 @@ void AsteroidGenerator::setRangeDistanceAppear(unsigned int minDistance, unsigne
 }
 
 void AsteroidGenerator::addAsteroid(World& world, Vector3D position) {
-	AsteroidLarge *asteroid = new AsteroidLarge(m_fDistanceRecycle);
+	int asteroidType = rand() % 3;
+	Asteroid *asteroid;
+	if (asteroidType == 0) {
+		asteroid = new AsteroidLarge(m_fDistanceRecycle);
+	}
+	else if (asteroidType == 1) {
+		asteroid = new AsteroidMedium(m_fDistanceRecycle);
+	}
+	else {
+		asteroid = new AsteroidSmall(m_fDistanceRecycle);
+	}
 	asteroid->setPosition(position);
 	if (!world.addCappedEntity(asteroid)) {
 		free(asteroid);
