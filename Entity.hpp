@@ -8,6 +8,8 @@
 
 class World;
 
+#include "EntityManager.hpp"
+#include "Geometry.hpp"
 #include "Vector3D.hpp"
 #include "ShapeFactory.hpp"
 
@@ -37,6 +39,10 @@ class Entity {
 	virtual bool update(World& world, Vector3D position);
 	glm::mat4 getTransformationMatrix();
 	virtual ShapeType getShapeType() = 0;
+	virtual S_Circle getHitZone() = 0;
+	virtual E_EntityType getType() = 0;
+	bool collidesWith(Entity* entity);
+	virtual void handleCollision(Entity* entity) = 0;
 };
 
 #endif

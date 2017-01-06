@@ -118,3 +118,20 @@ void Player::setWeapon3() {
 void Player::setWeapon4() {
 	_setWeapon(3);
 }
+
+S_Circle Player::getHitZone() {
+	S_Circle hz = {
+		.x = getPosition().getX(),
+		.y = getPosition().getY(),
+		.radius = 1.0f
+	};
+
+	return hz;
+}
+
+E_EntityType Player::getType() {
+	return ENTITY_SHIP;
+}
+
+void Player::handleCollision(Entity* entity) {
+}

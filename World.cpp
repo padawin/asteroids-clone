@@ -1,4 +1,6 @@
 #include "World.hpp"
+#include "config.h"
+#include "QuadTree.hpp"
 
 void World::setNbMaxEntities(unsigned int nbMaxEntities) {
 	m_iNbMaxEntities = nbMaxEntities;
@@ -19,9 +21,22 @@ bool World::addCappedEntity(Entity* entity) {
 }
 
 void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool>>* entities) {
+	S_Rectangle treeZone;
+	treeZone.x = playerPosition.getX() - MAX_DISTANCE_FROM_PLAYER;
+	treeZone.y = playerPosition.getY() - MAX_DISTANCE_FROM_PLAYER;
+	treeZone.width = MAX_DISTANCE_FROM_PLAYER * 2;
+	treeZone.height = MAX_DISTANCE_FROM_PLAYER * 2;
+	QuadTree tree = QuadTree(0, treeZone);
+
+	// update entities
 	std::vector<Entity*>::size_type i = 0;
 	while (i < entities->size()) {
-		if (!entities->at(i).first->update(*this, playerPosition)) {
+		if (entities->at(i).first->update(*this, playerPosition)) {
+			m_renderables.addEntity(entities->at(i).first);
+			tree.insert(entities->at(i).first);
+			++i;
+		}
+		else {
 			// this is a capped entity
 			if (entities->at(i).second) {
 				--m_iNbCappedEntities;
@@ -30,9 +45,15 @@ void World::_update(Vector3D playerPosition, std::vector<std::pair<Entity*, bool
 			entities->at(i) = entities->back();
 			entities->pop_back();
 		}
-		else {
-			m_renderables.addEntity(entities->at(i).first);
-			++i;
+	}
+
+	// check for collisions
+	for (auto entity : *entities) {
+		std::vector<Entity*> collisionCandidates = tree.retrieve(entity.first);
+		for (auto candidate : collisionCandidates) {
+			if (candidate != entity.first && entity.first->collidesWith(candidate)) {
+				entity.first->handleCollision(candidate);
+			}
 		}
 	}
 }
