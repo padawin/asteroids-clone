@@ -18,6 +18,7 @@ class Asteroid : public Entity {
 class AsteroidLarge : public Asteroid {
 	public:
 	AsteroidLarge(float distanceRecycle);
+	bool update(World& world, Vector3D thresholdPosition);
 	S_Circle getHitZone();
 	ShapeType getShapeType();
 };
@@ -25,6 +26,7 @@ class AsteroidLarge : public Asteroid {
 class AsteroidMedium : public Asteroid {
 	public:
 	AsteroidMedium(float distanceRecycle);
+	bool update(World& world, Vector3D thresholdPosition);
 	S_Circle getHitZone();
 	ShapeType getShapeType();
 };

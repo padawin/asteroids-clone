@@ -1,6 +1,7 @@
 #include "Asteroid.hpp"
 #include "Bullet.hpp"
 #include "ShapeFactory.hpp"
+#include "World.hpp"
 
 Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle) {
 	setCenter(Vector3D(0.0f, 0.0f, 0.0f));
@@ -53,6 +54,20 @@ AsteroidLarge::AsteroidLarge(float distanceRecycle) : Asteroid(distanceRecycle) 
 	m_iHP = 150;
 }
 
+bool AsteroidLarge::update(World& world, Vector3D thresholdPosition) {
+	bool updated = Asteroid::update(world, thresholdPosition);
+	if (m_iHP == 0) {
+		AsteroidMedium *med1 = new AsteroidMedium(m_fDistanceRecycle),
+			*med2 = new AsteroidMedium(m_fDistanceRecycle);
+		med1->setPosition(getPosition());
+		med2->setPosition(getPosition());
+		world.addEntity(med1);
+		world.addEntity(med2);
+	}
+
+	return updated;
+}
+
 S_Circle AsteroidLarge::getHitZone() {
 	S_Circle hz = {
 		.x = getPosition().getX(),
@@ -69,6 +84,20 @@ ShapeType AsteroidLarge::getShapeType() {
 
 AsteroidMedium::AsteroidMedium(float distanceRecycle) : Asteroid(distanceRecycle) {
 	m_iHP = 75;
+}
+
+bool AsteroidMedium::update(World& world, Vector3D thresholdPosition) {
+	bool updated = Asteroid::update(world, thresholdPosition);
+	if (m_iHP == 0) {
+		AsteroidSmall *small1 = new AsteroidSmall(m_fDistanceRecycle),
+			*small2 = new AsteroidSmall(m_fDistanceRecycle);
+		small1->setPosition(getPosition());
+		small2->setPosition(getPosition());
+		world.addEntity(small1);
+		world.addEntity(small2);
+	}
+
+	return updated;
 }
 
 S_Circle AsteroidMedium::getHitZone() {
