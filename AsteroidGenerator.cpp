@@ -13,23 +13,18 @@ void AsteroidGenerator::setRangeDistanceAppear(unsigned int minDistance, unsigne
 }
 
 void AsteroidGenerator::addAsteroid(World& world, Vector3D position) {
-	Asteroid *asteroid = new Asteroid(m_fDistanceRecycle);
+	int asteroidType = rand() % 3;
+	Asteroid *asteroid;
+	if (asteroidType == 0) {
+		asteroid = new AsteroidLarge(m_fDistanceRecycle);
+	}
+	else if (asteroidType == 1) {
+		asteroid = new AsteroidMedium(m_fDistanceRecycle);
+	}
+	else {
+		asteroid = new AsteroidSmall(m_fDistanceRecycle);
+	}
 	asteroid->setPosition(position);
-	// angle is between -2.0f and 2.0f degrees
-	float angularSpeedX = rand() % 4 - 2.0f,
-		  angularSpeedY = rand() % 4 - 2.0f,
-		  angularSpeedZ = rand() % 4 - 2.0f;
-
-	float speed = (rand() % 1000) / 10000.0f;
-	float angle = (rand() % 360) * M_PI / 180;
-	asteroid->setAngularSpeed(
-		Vector3D(angularSpeedX, angularSpeedY, angularSpeedZ)
-	);
-	asteroid->setSpeed(Vector3D(
-		speed * cos(angle),
-		speed * sin(angle),
-		0.0f
-	));
 	if (!world.addCappedEntity(asteroid)) {
 		free(asteroid);
 	}

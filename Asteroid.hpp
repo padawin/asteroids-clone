@@ -10,11 +10,32 @@ class Asteroid : public Entity {
 
 	public:
 	Asteroid(float distanceRecycle);
-	ShapeType getShapeType();
 	bool update(World& world, Vector3D thresholdPosition);
-	S_Circle getHitZone();
 	E_EntityType getType();
 	void handleCollision(Entity* entity);
+};
+
+class AsteroidLarge : public Asteroid {
+	public:
+	AsteroidLarge(float distanceRecycle);
+	bool update(World& world, Vector3D thresholdPosition);
+	S_Circle getHitZone();
+	ShapeType getShapeType();
+};
+
+class AsteroidMedium : public Asteroid {
+	public:
+	AsteroidMedium(float distanceRecycle);
+	bool update(World& world, Vector3D thresholdPosition);
+	S_Circle getHitZone();
+	ShapeType getShapeType();
+};
+
+class AsteroidSmall : public Asteroid {
+	public:
+	AsteroidSmall(float distanceRecycle);
+	S_Circle getHitZone();
+	ShapeType getShapeType();
 };
 
 #endif
