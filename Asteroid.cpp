@@ -4,6 +4,21 @@
 
 Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle), m_iHP(100) {
 	setCenter(Vector3D(0.0f, 0.0f, 0.0f));
+	// angle is between -2.0f and 2.0f degrees
+	float angularSpeedX = rand() % 4 - 2.0f,
+		  angularSpeedY = rand() % 4 - 2.0f,
+		  angularSpeedZ = rand() % 4 - 2.0f;
+
+	float speed = (rand() % 1000) / 10000.0f;
+	float angle = (rand() % 360) * M_PI / 180;
+	setAngularSpeed(
+		Vector3D(angularSpeedX, angularSpeedY, angularSpeedZ)
+	);
+	setSpeed(Vector3D(
+		speed * cos(angle),
+		speed * sin(angle),
+		0.0f
+	));
 }
 
 ShapeType Asteroid::getShapeType() {
