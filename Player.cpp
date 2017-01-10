@@ -7,7 +7,7 @@
 
 #define ACCELERATION_COEFFICIENT 0.002
 
-Player::Player() : m_selectedWeapon(0) {
+Player::Player() : m_selectedWeapon(0), m_iHP(100) {
 	m_weapons[0] = new Gun();
 	m_weapons[1] = new MissileLauncher();
 	m_weapons[2] = NULL;
