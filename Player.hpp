@@ -18,6 +18,7 @@ class Player : public Entity {
 	void _setWeapon(int weaponIndex);
 
 	Weapon* m_weapons[NB_MAX_WEAPONS];
+	int m_iHP;
 	int m_selectedWeapon;
 	float m_fSteerAngle = 0.0f;
 	bool m_bIsFiring = false;
