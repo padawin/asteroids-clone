@@ -41,6 +41,7 @@ class Player : public Entity {
 	S_Circle getHitZone();
 	E_EntityType getType();
 	void handleCollision(Entity* entity);
+	bool isDead();
 };
 
 #endif

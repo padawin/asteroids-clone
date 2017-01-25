@@ -146,3 +146,7 @@ void Player::handleCollision(Entity* entity) {
 			break;
 	}
 }
+
+bool Player::isDead() {
+	return m_iHP <= 0;
+}

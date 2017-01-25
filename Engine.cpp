@@ -272,6 +272,10 @@ void Engine::_update() {
 
 	m_asteroidGenerator.update(m_world, m_player->getPosition());
 	m_world.update(m_player->getPosition());
+
+	if (m_player->isDead()) {
+		m_bIsRunning = false;
+	}
 }
 
 // Needs to provide player's information
