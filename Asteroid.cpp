@@ -82,6 +82,10 @@ ShapeType AsteroidLarge::getShapeType() {
 	return ASTEROID_LARGE;
 }
 
+float AsteroidLarge::getDamages() {
+	return 200.0f;
+}
+
 AsteroidMedium::AsteroidMedium(float distanceRecycle) : Asteroid(distanceRecycle) {
 	m_iHP = 75;
 }
@@ -114,6 +118,10 @@ ShapeType AsteroidMedium::getShapeType() {
 	return ASTEROID_MEDIUM;
 }
 
+float AsteroidMedium::getDamages() {
+	return 50.0f;
+}
+
 AsteroidSmall::AsteroidSmall(float distanceRecycle) : Asteroid(distanceRecycle) {
 	m_iHP = 25;
 }
@@ -130,4 +138,8 @@ S_Circle AsteroidSmall::getHitZone() {
 
 ShapeType AsteroidSmall::getShapeType() {
 	return ASTEROID_SMALL;
+}
+
+float AsteroidSmall::getDamages() {
+	return 10.0f;
 }
