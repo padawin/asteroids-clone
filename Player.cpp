@@ -6,6 +6,7 @@
 #include <math.h>
 
 #define ACCELERATION_COEFFICIENT 0.002
+#define FRICTION_COEFFICIENT 0.0008
 
 Player::Player() : m_selectedWeapon(0), m_iHP(100) {
 	m_weapons[0] = new Gun();
@@ -20,6 +21,7 @@ ShapeType Player::getShapeType() {
 
 bool Player::update(World& world, Vector3D position) {
 	Entity::update(world, position);
+	m_VSpeed -= m_VSpeed * FRICTION_COEFFICIENT;
 
 	if (m_fSteerAngle != 0.0f) {
 		_updateDirection();
