@@ -3,7 +3,7 @@ SRCDIR := .
 BUILDDIR := build
 
 PROG   := progName
-CC     := g++
+CC     := g++ -std=c++11
 INCL   :=
 CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-pedantic -pedantic-errors -Wextra -Wcast-align \
