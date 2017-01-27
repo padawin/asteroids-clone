@@ -17,7 +17,19 @@ bool ObjParser::parse(const char* filePath) {
 		if (buf[0] == '\0' || buf[0] == '#') {
 			continue;
 		}
+		switch (buf[0]) {
+			case 'v':
+				_parseVertex(buf);
+				break;
+			case 'f':
+				break;
+			default:
+				break;
+		}
 	}
 
 	return true;
+}
+
+void ObjParser::_parseVertex(char* line) {
 }

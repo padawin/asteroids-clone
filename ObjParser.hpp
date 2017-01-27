@@ -6,6 +6,9 @@
 #define MAX_CHARS_PER_LINE 512
 
 class ObjParser {
+	private:
+	void _parseVertex(char* line);
+
 	public:
 	bool parse(const char*);
 };
