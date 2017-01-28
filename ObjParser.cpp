@@ -9,11 +9,9 @@ bool ObjParser::parse(const char* filePath) {
 		return false;
 	}
 
-	// read each line of the file
-	while (!fin.eof()) {
-		// read an entire line into memory
-		char buf[MAX_CHARS_PER_LINE];
-		fin.getline(buf, MAX_CHARS_PER_LINE);
+	char buf[MAX_CHARS_PER_LINE];
+	S_VertexIndex vertexIndex = {0, 0, 0};
+	while (fin.getline(buf, MAX_CHARS_PER_LINE)) {
 		if (buf[0] == '\0' || buf[0] == '#') {
 			continue;
 		}
