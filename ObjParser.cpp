@@ -85,7 +85,6 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 
 void ObjParser::_parseFace(char* line) {
 	S_Face face;
-	int texture1, texture2, texture3, normal1, normal2, normal3;
 	sscanf(
 		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
 		&face.vertex[0].indexCoords, &texture1, &normal1,
