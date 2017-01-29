@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "Shape.hpp"
 
 #define MAX_CHARS_PER_LINE 512
 
@@ -32,13 +33,14 @@ typedef struct {
 
 class ObjParser {
 	private:
+	void _populateShape(Shape* shape);
 	void _parseVertex(S_VertexIndex &index, char* line);
 	void _parseFace(char* line);
 	std::vector<S_Vertex> m_vVertices;
 	std::vector<S_Face> m_vFaces;
 
 	public:
-	bool parse(const char*);
+	bool parse(const char* filePath, Shape* shape);
 };
 
 #endif

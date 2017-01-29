@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-bool ObjParser::parse(const char* filePath) {
+bool ObjParser::parse(const char* filePath, Shape* shape) {
 	std::ifstream fin;
 	fin.open(filePath);
 	if (!fin.good()) {
@@ -27,7 +27,34 @@ bool ObjParser::parse(const char* filePath) {
 		}
 	}
 
+	_populateShape(shape);
 	return true;
+}
+
+void ObjParser::_populateShape(Shape* shape) {
+	GLfloat vertices[m_vVertices.size() * 8];
+	int j = 0;
+	for (std::vector<S_Vertex>::size_type i = 0; i < m_vVertices.size(); ++i) {
+		vertices[j++] = m_vVertices[i].x;
+		vertices[j++] = m_vVertices[i].y;
+		vertices[j++] = m_vVertices[i].z;
+		vertices[j++] = 68.0f;
+		vertices[j++] = 68.0f;
+		vertices[j++] = 68.0f;
+		vertices[j++] = 0.0f;
+		vertices[j++] = 0.0f;
+	}
+
+	GLuint elements[m_vFaces.size() * 3];
+	j = 0;
+	for (std::vector<S_Face>::size_type i = 0; i < m_vFaces.size(); ++i) {
+		elements[j++] = m_vFaces[i].vertexIndex1 - 1;
+		elements[j++] = m_vFaces[i].vertexIndex2 - 1;
+		elements[j++] = m_vFaces[i].vertexIndex3 - 1;
+	}
+
+	shape->setVertices(vertices, sizeof(vertices));
+	shape->setElements(elements, sizeof(elements));
 }
 
 void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
