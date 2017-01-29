@@ -74,13 +74,13 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 				vertex.y = vertexY;
 				vertex.z = vertexZ;
 				m_vVertices.push_back(vertex);
-				vertexIndex.indexCoords++;
 			}
 			else {
 				m_vVertices[vertexIndex.indexCoords].x = vertexX;
 				m_vVertices[vertexIndex.indexCoords].y = vertexY;
 				m_vVertices[vertexIndex.indexCoords].z = vertexZ;
 			}
+			vertexIndex.indexCoords++;
 			break;
 		default:
 			break;
