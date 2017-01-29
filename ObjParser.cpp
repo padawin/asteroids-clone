@@ -1,6 +1,6 @@
 #include "ObjParser.hpp"
+#include <string.h>
 #include <fstream>
-#include <sstream>
 
 bool ObjParser::parse(const char* filePath, Shape* shape) {
 	std::ifstream fin;
@@ -58,16 +58,11 @@ void ObjParser::_populateShape(Shape* shape) {
 }
 
 void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
-	std::stringstream ss(line);
 	switch (line[1]) {
 		// vertex line
 		case ' ':
-			char type[2];
 			float vertexX, vertexY, vertexZ;
-			ss >> type;
-			ss >> vertexX;
-			ss >> vertexY;
-			ss >> vertexZ;
+			sscanf(line, "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
 			if (vertexIndex.indexCoords >= m_vVertices.size()) {
 				S_Vertex vertex;
 				vertex.x = vertexX;
@@ -88,17 +83,13 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 }
 
 void ObjParser::_parseFace(char* line) {
-	std::stringstream ss(line);
-	char type;
-	char separator;
-	int garbage;
-	// format:
-	// f \d+/\d+/\d+ \d+/\d+/\d+ \d+/\d+/\d+
-	// The first int of each part interests us here
 	S_Face face;
-	ss >> type;
-	ss >> face.vertexIndex1;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
-	ss >> face.vertexIndex2;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
-	ss >> face.vertexIndex3;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
+	int texture1, texture2, texture3, normal1, normal2, normal3;
+	sscanf(
+		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
+		&face.vertexIndex1, &texture1, &normal1,
+		&face.vertexIndex2, &texture2, &normal2,
+		&face.vertexIndex3, &texture3, &normal3
+	);
 	m_vFaces.push_back(face);
 }
