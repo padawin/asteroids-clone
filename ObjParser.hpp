@@ -11,9 +11,6 @@ typedef struct {
 	float x;
 	float y;
 	float z;
-	float r;
-	float g;
-	float b;
 	float textureX;
 	float textureY;
 } S_Vertex;
