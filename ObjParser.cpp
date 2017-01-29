@@ -20,6 +20,7 @@ bool ObjParser::parse(const char* filePath) {
 				_parseVertex(vertexIndex, buf);
 				break;
 			case 'f':
+				_parseFace(buf);
 				break;
 			default:
 				break;
@@ -57,4 +58,20 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 		default:
 			break;
 	}
+}
+
+void ObjParser::_parseFace(char* line) {
+	std::stringstream ss(line);
+	char type;
+	char separator;
+	int garbage;
+	// format:
+	// f \d+/\d+/\d+ \d+/\d+/\d+ \d+/\d+/\d+
+	// The first int of each part interests us here
+	S_Face face;
+	ss >> type;
+	ss >> face.vertexIndex1;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
+	ss >> face.vertexIndex2;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
+	ss >> face.vertexIndex3;ss >> separator;ss >> garbage;ss >> separator;ss >> garbage;
+	m_vFaces.push_back(face);
 }
