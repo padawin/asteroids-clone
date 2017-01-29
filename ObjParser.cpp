@@ -32,25 +32,26 @@ bool ObjParser::parse(const char* filePath, Shape* shape) {
 }
 
 void ObjParser::_populateShape(Shape* shape) {
-	GLfloat vertices[m_vVertices.size() * 8];
-	int j = 0;
-	for (std::vector<S_Vertex>::size_type i = 0; i < m_vVertices.size(); ++i) {
-		vertices[j++] = m_vVertices[i].x;
-		vertices[j++] = m_vVertices[i].y;
-		vertices[j++] = m_vVertices[i].z;
-		vertices[j++] = 68.0f;
-		vertices[j++] = 68.0f;
-		vertices[j++] = 68.0f;
-		vertices[j++] = 0.0f;
-		vertices[j++] = 0.0f;
-	}
-
+	GLfloat vertices[m_vFaces.size() * 3 * 8];
 	GLuint elements[m_vFaces.size() * 3];
-	j = 0;
-	for (std::vector<S_Face>::size_type i = 0; i < m_vFaces.size(); ++i) {
-		elements[j++] = m_vFaces[i].vertexIndex1 - 1;
-		elements[j++] = m_vFaces[i].vertexIndex2 - 1;
-		elements[j++] = m_vFaces[i].vertexIndex3 - 1;
+	int vertexIndex = 0, elementIndex = 0;
+	for (auto face : m_vFaces) {
+		for (int i= 0; i < 3; ++i) {
+			// vertex coordinates
+			vertices[vertexIndex++] = m_vVertices[face.vertex[i].indexCoords - 1].x;
+			vertices[vertexIndex++] = m_vVertices[face.vertex[i].indexCoords - 1].y;
+			vertices[vertexIndex++] = m_vVertices[face.vertex[i].indexCoords - 1].z;
+			// vertex color
+			vertices[vertexIndex++] = 68.0f;
+			vertices[vertexIndex++] = 68.0f;
+			vertices[vertexIndex++] = 68.0f;
+			// vertex texture
+			vertices[vertexIndex++] = 0.0f;
+			vertices[vertexIndex++] = 0.0f;
+			// faces
+			elements[elementIndex] = elementIndex;
+			++elementIndex;
+		}
 	}
 
 	shape->setVertices(vertices, sizeof(vertices));
@@ -87,9 +88,9 @@ void ObjParser::_parseFace(char* line) {
 	int texture1, texture2, texture3, normal1, normal2, normal3;
 	sscanf(
 		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
-		&face.vertexIndex1, &texture1, &normal1,
-		&face.vertexIndex2, &texture2, &normal2,
-		&face.vertexIndex3, &texture3, &normal3
+		&face.vertex[0].indexCoords, &texture1, &normal1,
+		&face.vertex[1].indexCoords, &texture2, &normal2,
+		&face.vertex[2].indexCoords, &texture3, &normal3
 	);
 	m_vFaces.push_back(face);
 }

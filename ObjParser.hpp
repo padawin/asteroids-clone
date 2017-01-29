@@ -16,17 +16,14 @@ typedef struct {
 } S_Vertex;
 
 typedef struct {
-	int vertexIndex1;
-	int vertexIndex2;
-	int vertexIndex3;
-} S_Face;
-
-typedef struct {
 	int indexCoords;
 	int indexTexture;
 	int indexNormal;
-
 } S_VertexIndex;
+
+typedef struct {
+	S_VertexIndex vertex[3];
+} S_Face;
 
 class ObjParser {
 	private:
