@@ -124,19 +124,8 @@ void Engine::_createShaders() {
 			if (Texture.x == 0.0f && Texture.y == 0.0f) {
 				outColor = vec4(Color, 1.0);
 			}
-			else if (Texture.y < 0.5f) {
-				outColor = texture(avatar, Texture);
-			}
 			else {
-				// this inverts the bottom half of the texture
-				//outColor = texture(tex, vec2(Texture.x, 1.0f - Texture.y));
-				outColor = texture(
-					avatar,
-					vec2(
-						Texture.x + sin(Texture.y * 60.0 + time / 100.0) / 30.0,
-						1.0 - Texture.y
-					)
-				) * vec4(0.7, 0.7, 1.0, 1.0);
+				outColor = texture(avatar, Texture);
 			}
 		}
 	);
