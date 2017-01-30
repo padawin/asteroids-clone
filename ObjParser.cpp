@@ -46,8 +46,8 @@ void ObjParser::_populateShape(Shape* shape) {
 			vertices[vertexIndex++] = 68.0f;
 			vertices[vertexIndex++] = 68.0f;
 			// vertex texture
-			vertices[vertexIndex++] = 0.0f;
-			vertices[vertexIndex++] = 0.0f;
+			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].x;
+			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].y;
 			// faces
 			elements[elementIndex] = elementIndex;
 			++elementIndex;
@@ -70,6 +70,14 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 			vertex.z = vertexZ;
 			m_vVertices.push_back(vertex);
 			break;
+		case 't':
+			float textureX, textureY;
+			sscanf(line, "vt %f %f\n", &textureX, &textureY);
+			S_Texture texture;
+			texture.x = textureX;
+			texture.y = textureY;
+			m_vTextures.push_back(texture);
+			break;
 		default:
 			break;
 	}
@@ -77,11 +85,11 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 
 void ObjParser::_parseFace(char* line) {
 	S_Face face;
-	sscanf(
+	int result = sscanf(
 		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
-		&face.vertex[0].indexCoords, &texture1, &normal1,
-		&face.vertex[1].indexCoords, &texture2, &normal2,
-		&face.vertex[2].indexCoords, &texture3, &normal3
+		&face.vertex[0].indexCoords, &face.vertex[0].indexTexture, &face.vertex[0].indexNormal,
+		&face.vertex[1].indexCoords, &face.vertex[1].indexTexture, &face.vertex[1].indexNormal,
+		&face.vertex[2].indexCoords, &face.vertex[2].indexTexture, &face.vertex[2].indexNormal
 	);
 	m_vFaces.push_back(face);
 }

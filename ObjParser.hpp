@@ -11,9 +11,12 @@ typedef struct {
 	float x;
 	float y;
 	float z;
-	float textureX;
-	float textureY;
 } S_Vertex;
+
+typedef struct {
+	float x;
+	float y;
+} S_Texture;
 
 typedef struct {
 	int indexCoords;
@@ -31,6 +34,7 @@ class ObjParser {
 	void _parseVertex(S_VertexIndex &index, char* line);
 	void _parseFace(char* line);
 	std::vector<S_Vertex> m_vVertices;
+	std::vector<S_Texture> m_vTextures;
 	std::vector<S_Face> m_vFaces;
 
 	public:
