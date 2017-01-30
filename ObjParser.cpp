@@ -64,19 +64,11 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 		case ' ':
 			float vertexX, vertexY, vertexZ;
 			sscanf(line, "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
-			if (vertexIndex.indexCoords >= m_vVertices.size()) {
-				S_Vertex vertex;
-				vertex.x = vertexX;
-				vertex.y = vertexY;
-				vertex.z = vertexZ;
-				m_vVertices.push_back(vertex);
-			}
-			else {
-				m_vVertices[vertexIndex.indexCoords].x = vertexX;
-				m_vVertices[vertexIndex.indexCoords].y = vertexY;
-				m_vVertices[vertexIndex.indexCoords].z = vertexZ;
-			}
-			vertexIndex.indexCoords++;
+			S_Vertex vertex;
+			vertex.x = vertexX;
+			vertex.y = vertexY;
+			vertex.z = vertexZ;
+			m_vVertices.push_back(vertex);
 			break;
 		default:
 			break;
