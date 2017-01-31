@@ -116,7 +116,7 @@ void Engine::_createShaders() {
 		in vec2 Texture;
 
 		out vec4 outColor;
-		uniform sampler2D avatar;
+		uniform sampler2D textureResource;
 		uniform int time;
 
 		void main()
@@ -125,7 +125,7 @@ void Engine::_createShaders() {
 				outColor = vec4(Color, 1.0);
 			}
 			else {
-				outColor = texture(avatar, Texture);
+				outColor = texture(textureResource, Texture);
 			}
 		}
 	);
@@ -155,7 +155,7 @@ void Engine::_createTextures() {
 	image = SOIL_load_image("avatar.png", &width, &height, 0, SOIL_LOAD_RGB);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
-	glUniform1i(glGetUniformLocation(m_shaderProgram, "avatar"), 0);
+	glUniform1i(glGetUniformLocation(m_shaderProgram, "textureResource"), 0);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
