@@ -21,14 +21,14 @@ void RenderableCollection::update(World& world, Vector3D position) {
 	}
 }
 
-void RenderableCollection::render(GLuint shaderProgram, ShapeCollection renderables) {
+void RenderableCollection::render(GLuint shaderProgram, ShapeCollection shapes) {
 	for (auto& it : m_mEntities) {
-		renderables.bindVertexArray(it.first);
+		shapes.bindVertexArray(it.first);
 		for (auto &itEntity : it.second) {
 			glm::mat4 trans = itEntity->getTransformationMatrix();
 			GLint uniTrans = glGetUniformLocation(shaderProgram, "trans");
 			glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
-			renderables.render(it.first);
+			shapes.render(it.first);
 		}
 	}
 }
