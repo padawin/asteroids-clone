@@ -10,6 +10,10 @@ void World::addEntity(Entity* entity) {
 	m_vEntities.push_back(std::make_pair(entity, false));
 }
 
+void World::addTexture(std::string textureName, GLuint id) {
+	m_mTextures[textureName] = id;
+}
+
 bool World::addCappedEntity(Entity* entity) {
 	if (m_iNbCappedEntities == m_iNbMaxEntities) {
 		return false;
