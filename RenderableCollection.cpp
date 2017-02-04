@@ -23,7 +23,7 @@ void RenderableCollection::update(World& world, Vector3D position) {
 
 void RenderableCollection::render(GLuint shaderProgram, ShapeCollection shapes) {
 	for (auto& it : m_mEntities) {
-		shapes.bindVertexArray(it.first);
+		shapes.bind(it.first);
 		for (auto &itEntity : it.second) {
 			glm::mat4 trans = itEntity->getTransformationMatrix();
 			GLint uniTrans = glGetUniformLocation(shaderProgram, "trans");

@@ -56,7 +56,7 @@ void ShapeCollection::generateVertexArrays(GLuint shaderProgram) {
 		GLuint vertexArray = 0;
 		m_mVertexArrays[shape.first] = vertexArray;
 		glGenVertexArrays(1, &m_mVertexArrays[shape.first]);
-		bindVertexArray(shape.first);
+		_bindVertexArray(shape.first);
 		glEnableVertexAttribArray(posAttrib);
 		glEnableVertexAttribArray(colAttrib);
 		glEnableVertexAttribArray(texAttrib);
@@ -80,7 +80,11 @@ void ShapeCollection::clean() {
 	}
 }
 
-void ShapeCollection::bindVertexArray(ShapeType type) {
+void ShapeCollection::bind(ShapeType type) {
+	_bindVertexArray(type);
+}
+
+void ShapeCollection::_bindVertexArray(ShapeType type) {
 	glBindVertexArray(m_mVertexArrays[type]);
 }
 
