@@ -9,12 +9,13 @@ bool ObjParser::parse(const char* filePath, Shape* shape) {
 		return false;
 	}
 
-	char buf[MAX_CHARS_PER_LINE];
+	std::string buf;
 	S_VertexIndex vertexIndex = {0, 0, 0};
-	while (fin.getline(buf, MAX_CHARS_PER_LINE)) {
+	while (std::getline(fin, buf)) {
 		if (buf[0] == '\0' || buf[0] == '#') {
 			continue;
 		}
+
 		switch (buf[0]) {
 			case 'v':
 				_parseVertex(vertexIndex, buf);
@@ -58,12 +59,12 @@ void ObjParser::_populateShape(Shape* shape) {
 	shape->setElements(elements, sizeof(elements));
 }
 
-void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
+void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, std::string line) {
 	switch (line[1]) {
 		// vertex line
 		case ' ':
 			float vertexX, vertexY, vertexZ;
-			sscanf(line, "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
+			sscanf(line.c_str(), "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
 			S_Vertex vertex;
 			vertex.x = vertexX;
 			vertex.y = vertexY;
@@ -72,7 +73,7 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 			break;
 		case 't':
 			float textureX, textureY;
-			sscanf(line, "vt %f %f\n", &textureX, &textureY);
+			sscanf(line.c_str(), "vt %f %f\n", &textureX, &textureY);
 			S_Texture texture;
 			texture.x = textureX;
 			texture.y = textureY;
@@ -83,10 +84,10 @@ void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
 	}
 }
 
-void ObjParser::_parseFace(char* line) {
+void ObjParser::_parseFace(std::string line) {
 	S_Face face;
 	int result = sscanf(
-		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
+		line.c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
 		&face.vertex[0].indexCoords, &face.vertex[0].indexTexture, &face.vertex[0].indexNormal,
 		&face.vertex[1].indexCoords, &face.vertex[1].indexTexture, &face.vertex[1].indexNormal,
 		&face.vertex[2].indexCoords, &face.vertex[2].indexTexture, &face.vertex[2].indexNormal

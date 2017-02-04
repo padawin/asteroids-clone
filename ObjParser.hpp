@@ -31,8 +31,8 @@ typedef struct {
 class ObjParser {
 	private:
 	void _populateShape(Shape* shape);
-	void _parseVertex(S_VertexIndex &index, char* line);
-	void _parseFace(char* line);
+	void _parseVertex(S_VertexIndex &index, std::string line);
+	void _parseFace(std::string line);
 	std::vector<S_Vertex> m_vVertices;
 	std::vector<S_Texture> m_vTextures;
 	std::vector<S_Face> m_vFaces;
