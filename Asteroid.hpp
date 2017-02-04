@@ -13,6 +13,7 @@ class Asteroid : public Entity {
 	bool update(World& world, Vector3D thresholdPosition);
 	E_EntityType getType();
 	void handleCollision(Entity* entity);
+	virtual float getDamages() = 0;
 };
 
 class AsteroidLarge : public Asteroid {
@@ -21,6 +22,7 @@ class AsteroidLarge : public Asteroid {
 	bool update(World& world, Vector3D thresholdPosition);
 	S_Circle getHitZone();
 	ShapeType getShapeType();
+	float getDamages();
 };
 
 class AsteroidMedium : public Asteroid {
@@ -29,6 +31,7 @@ class AsteroidMedium : public Asteroid {
 	bool update(World& world, Vector3D thresholdPosition);
 	S_Circle getHitZone();
 	ShapeType getShapeType();
+	float getDamages();
 };
 
 class AsteroidSmall : public Asteroid {
@@ -36,6 +39,7 @@ class AsteroidSmall : public Asteroid {
 	AsteroidSmall(float distanceRecycle);
 	S_Circle getHitZone();
 	ShapeType getShapeType();
+	float getDamages();
 };
 
 #endif

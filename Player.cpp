@@ -1,5 +1,6 @@
 #include "config.h"
 #include "Player.hpp"
+#include "Asteroid.hpp"
 #include "ShapeFactory.hpp"
 #include "Gun.hpp"
 #include "MissileLauncher.hpp"
@@ -136,4 +137,16 @@ E_EntityType Player::getType() {
 }
 
 void Player::handleCollision(Entity* entity) {
+	switch (entity->getType()) {
+		case ENTITY_ASTEROID:
+			// deals damages
+			m_iHP -= dynamic_cast<Asteroid*>(entity)->getDamages();
+			break;
+		default:
+			break;
+	}
+}
+
+bool Player::isDead() {
+	return m_iHP <= 0;
 }
