@@ -63,6 +63,9 @@ void ObjParser::_populateShape(Shape* shape) {
 
 	shape->setVertices(vertices, sizeof(vertices));
 	shape->setElements(elements, sizeof(elements));
+	if (m_sTextureFile != NULL) {
+		shape->setTextureFile(std::string(m_sTextureFile));
+	}
 }
 
 void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, std::string line) {

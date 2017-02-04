@@ -19,6 +19,10 @@ void Shape::setElements(GLuint *elements, unsigned long nbElements) {
 	memcpy(m_iElements, elements, nbElements);
 }
 
+void Shape::setTextureFile(std::string file) {
+	m_sTextureFile = file;
+}
+
 GLfloat *Shape::getVertices() {
 	return m_fVertices;
 }
@@ -32,4 +36,8 @@ unsigned long Shape::getNbVertices() {
 
 unsigned long Shape::getNbElements() {
 	return m_iNbElements;
+}
+
+std::string Shape::getTextureFile() {
+	return m_sTextureFile;
 }
