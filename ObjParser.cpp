@@ -11,6 +11,7 @@ bool ObjParser::parse(const char* filePath, Shape* shape) {
 
 	std::string buf;
 	S_VertexIndex vertexIndex = {0, 0, 0};
+	m_sTextureFile[0] = '\0';
 	while (std::getline(fin, buf)) {
 		if (buf[0] == '\0' || buf[0] == '#') {
 			continue;
@@ -22,6 +23,11 @@ bool ObjParser::parse(const char* filePath, Shape* shape) {
 				break;
 			case 'f':
 				_parseFace(buf);
+				break;
+			case 'm':
+				if (buf.substr(0, 6) == "mtllib") {
+					_parseMaterial(buf);
+				}
 				break;
 			default:
 				break;
@@ -93,4 +99,24 @@ void ObjParser::_parseFace(std::string line) {
 		&face.vertex[2].indexCoords, &face.vertex[2].indexTexture, &face.vertex[2].indexNormal
 	);
 	m_vFaces.push_back(face);
+}
+
+void ObjParser::_parseMaterial(std::string line) {
+	char fileName[MAX_CHARS_PER_LINE];
+	sscanf(line.c_str(), "mtllib %s\n", &fileName);
+	std::ifstream fin;
+	fin.open(std::string("./materials/") + fileName);
+	if (!fin.good()) {
+		return;
+	}
+
+	std::string buf;
+	S_VertexIndex vertexIndex = {0, 0, 0};
+	char key[10];
+	while (std::getline(fin, buf)) {
+		sscanf(buf.c_str(), "%s", &key);
+		if (strstr(key, "map_Kd") != NULL) {
+			sscanf(buf.c_str(), "map_Kd %s\n", &m_sTextureFile);
+		}
+	}
 }

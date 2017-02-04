@@ -33,9 +33,11 @@ class ObjParser {
 	void _populateShape(Shape* shape);
 	void _parseVertex(S_VertexIndex &index, std::string line);
 	void _parseFace(std::string line);
+	void _parseMaterial(std::string line);
 	std::vector<S_Vertex> m_vVertices;
 	std::vector<S_Texture> m_vTextures;
 	std::vector<S_Face> m_vFaces;
+	char m_sTextureFile[MAX_CHARS_PER_LINE];
 
 	public:
 	bool parse(const char* filePath, Shape* shape);
