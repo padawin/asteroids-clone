@@ -56,7 +56,7 @@ void ShapeCollection::generateVertexArrays(GLuint shaderProgram) {
 		GLuint vertexArray = 0;
 		m_mVertexArrays[shape.first] = vertexArray;
 		glGenVertexArrays(1, &m_mVertexArrays[shape.first]);
-		bindVertexArray(shape.first);
+		_bindVertexArray(shape.first);
 		glEnableVertexAttribArray(posAttrib);
 		glEnableVertexAttribArray(colAttrib);
 		glEnableVertexAttribArray(texAttrib);
@@ -80,8 +80,19 @@ void ShapeCollection::clean() {
 	}
 }
 
-void ShapeCollection::bindVertexArray(ShapeType type) {
+void ShapeCollection::bind(ShapeType type, std::map<std::string, GLuint> textures) {
+	_bindVertexArray(type);
+	_bindTexture(type, textures);
+}
+
+void ShapeCollection::_bindVertexArray(ShapeType type) {
 	glBindVertexArray(m_mVertexArrays[type]);
+}
+
+void ShapeCollection::_bindTexture(ShapeType type, std::map<std::string, GLuint> textures) {
+	if (m_mShapes[type]->getTextureFile() != "") {
+		glBindTexture(GL_TEXTURE_2D, textures[m_mShapes[type]->getTextureFile()]);
+	}
 }
 
 void ShapeCollection::render(ShapeType type) {
