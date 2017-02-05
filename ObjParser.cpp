@@ -9,18 +9,25 @@ bool ObjParser::parse(const char* filePath, Shape* shape) {
 		return false;
 	}
 
-	char buf[MAX_CHARS_PER_LINE];
+	std::string buf;
 	S_VertexIndex vertexIndex = {0, 0, 0};
-	while (fin.getline(buf, MAX_CHARS_PER_LINE)) {
+	m_sTextureFile[0] = '\0';
+	while (std::getline(fin, buf)) {
 		if (buf[0] == '\0' || buf[0] == '#') {
 			continue;
 		}
+
 		switch (buf[0]) {
 			case 'v':
 				_parseVertex(vertexIndex, buf);
 				break;
 			case 'f':
 				_parseFace(buf);
+				break;
+			case 'm':
+				if (buf.substr(0, 6) == "mtllib") {
+					_parseMaterial(buf);
+				}
 				break;
 			default:
 				break;
@@ -46,8 +53,8 @@ void ObjParser::_populateShape(Shape* shape) {
 			vertices[vertexIndex++] = 68.0f;
 			vertices[vertexIndex++] = 68.0f;
 			// vertex texture
-			vertices[vertexIndex++] = 0.0f;
-			vertices[vertexIndex++] = 0.0f;
+			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].x;
+			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].y;
 			// faces
 			elements[elementIndex] = elementIndex;
 			++elementIndex;
@@ -56,41 +63,63 @@ void ObjParser::_populateShape(Shape* shape) {
 
 	shape->setVertices(vertices, sizeof(vertices));
 	shape->setElements(elements, sizeof(elements));
+	if (m_sTextureFile != NULL) {
+		shape->setTextureFile(std::string(m_sTextureFile));
+	}
 }
 
-void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, char* line) {
+void ObjParser::_parseVertex(S_VertexIndex &vertexIndex, std::string line) {
 	switch (line[1]) {
 		// vertex line
 		case ' ':
 			float vertexX, vertexY, vertexZ;
-			sscanf(line, "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
-			if (vertexIndex.indexCoords >= m_vVertices.size()) {
-				S_Vertex vertex;
-				vertex.x = vertexX;
-				vertex.y = vertexY;
-				vertex.z = vertexZ;
-				m_vVertices.push_back(vertex);
-			}
-			else {
-				m_vVertices[vertexIndex.indexCoords].x = vertexX;
-				m_vVertices[vertexIndex.indexCoords].y = vertexY;
-				m_vVertices[vertexIndex.indexCoords].z = vertexZ;
-			}
-			vertexIndex.indexCoords++;
+			sscanf(line.c_str(), "v %f %f %f\n", &vertexX, &vertexY, &vertexZ);
+			S_Vertex vertex;
+			vertex.x = vertexX;
+			vertex.y = vertexY;
+			vertex.z = vertexZ;
+			m_vVertices.push_back(vertex);
+			break;
+		case 't':
+			float textureX, textureY;
+			sscanf(line.c_str(), "vt %f %f\n", &textureX, &textureY);
+			S_Texture texture;
+			texture.x = textureX;
+			texture.y = textureY;
+			m_vTextures.push_back(texture);
 			break;
 		default:
 			break;
 	}
 }
 
-void ObjParser::_parseFace(char* line) {
+void ObjParser::_parseFace(std::string line) {
 	S_Face face;
-	int texture1, texture2, texture3, normal1, normal2, normal3;
-	sscanf(
-		line, "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
-		&face.vertex[0].indexCoords, &texture1, &normal1,
-		&face.vertex[1].indexCoords, &texture2, &normal2,
-		&face.vertex[2].indexCoords, &texture3, &normal3
+	int result = sscanf(
+		line.c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d\n",
+		&face.vertex[0].indexCoords, &face.vertex[0].indexTexture, &face.vertex[0].indexNormal,
+		&face.vertex[1].indexCoords, &face.vertex[1].indexTexture, &face.vertex[1].indexNormal,
+		&face.vertex[2].indexCoords, &face.vertex[2].indexTexture, &face.vertex[2].indexNormal
 	);
 	m_vFaces.push_back(face);
+}
+
+void ObjParser::_parseMaterial(std::string line) {
+	char fileName[MAX_CHARS_PER_LINE];
+	sscanf(line.c_str(), "mtllib %s\n", &fileName);
+	std::ifstream fin;
+	fin.open(std::string("./materials/") + fileName);
+	if (!fin.good()) {
+		return;
+	}
+
+	std::string buf;
+	S_VertexIndex vertexIndex = {0, 0, 0};
+	char key[10];
+	while (std::getline(fin, buf)) {
+		sscanf(buf.c_str(), "%s", &key);
+		if (strstr(key, "map_Kd") != NULL) {
+			sscanf(buf.c_str(), "map_Kd %s\n", &m_sTextureFile);
+		}
+	}
 }

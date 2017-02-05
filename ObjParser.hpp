@@ -11,9 +11,12 @@ typedef struct {
 	float x;
 	float y;
 	float z;
-	float textureX;
-	float textureY;
 } S_Vertex;
+
+typedef struct {
+	float x;
+	float y;
+} S_Texture;
 
 typedef struct {
 	int indexCoords;
@@ -28,10 +31,13 @@ typedef struct {
 class ObjParser {
 	private:
 	void _populateShape(Shape* shape);
-	void _parseVertex(S_VertexIndex &index, char* line);
-	void _parseFace(char* line);
+	void _parseVertex(S_VertexIndex &index, std::string line);
+	void _parseFace(std::string line);
+	void _parseMaterial(std::string line);
 	std::vector<S_Vertex> m_vVertices;
+	std::vector<S_Texture> m_vTextures;
 	std::vector<S_Face> m_vFaces;
+	char m_sTextureFile[MAX_CHARS_PER_LINE];
 
 	public:
 	bool parse(const char* filePath, Shape* shape);

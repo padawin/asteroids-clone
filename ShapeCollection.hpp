@@ -15,6 +15,8 @@ class ShapeCollection {
 	std::map<ShapeType, unsigned long> m_mShapesOffsets;
 	GLuint m_iVertexBuffer;
 	GLuint m_iElementBuffer;
+	void _bindVertexArray(ShapeType type);
+	void _bindTexture(ShapeType type, std::map<std::string, GLuint> textures);
 
 	public:
 	ShapeCollection() : m_lVerticesSize(0), m_lElementsSize(0) {}
@@ -22,7 +24,7 @@ class ShapeCollection {
 	void generateBuffers();
 	void generateVertexArrays(GLuint shaderProgram);
 	void clean();
-	void bindVertexArray(ShapeType type);
+	void bind(ShapeType type, std::map<std::string, GLuint> textures);
 	void render(ShapeType type);
 };
 

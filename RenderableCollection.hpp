@@ -15,7 +15,7 @@ class RenderableCollection {
 	void addEntity(Entity *entity);
 	void flush();
 	void update(World& world, Vector3D position);
-	void render(GLuint shaderProgram, ShapeCollection shapes);
+	void render(GLuint shaderProgram, ShapeCollection shapes, std::map<std::string, GLuint>);
 };
 
 #endif

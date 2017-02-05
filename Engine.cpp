@@ -116,7 +116,7 @@ void Engine::_createShaders() {
 		in vec2 Texture;
 
 		out vec4 outColor;
-		uniform sampler2D avatar;
+		uniform sampler2D textureResource;
 		uniform int time;
 
 		void main()
@@ -124,19 +124,8 @@ void Engine::_createShaders() {
 			if (Texture.x == 0.0f && Texture.y == 0.0f) {
 				outColor = vec4(Color, 1.0);
 			}
-			else if (Texture.y < 0.5f) {
-				outColor = texture(avatar, Texture);
-			}
 			else {
-				// this inverts the bottom half of the texture
-				//outColor = texture(tex, vec2(Texture.x, 1.0f - Texture.y));
-				outColor = texture(
-					avatar,
-					vec2(
-						Texture.x + sin(Texture.y * 60.0 + time / 100.0) / 30.0,
-						1.0 - Texture.y
-					)
-				) * vec4(0.7, 0.7, 1.0, 1.0);
+				outColor = texture(textureResource, Texture);
 			}
 		}
 	);
@@ -155,24 +144,39 @@ void Engine::_createShaders() {
 }
 
 void Engine::_createTextures() {
+	std::string texturesPath = "./textures/";
+	const char* textures[] = {
+		"Large_Asteroid_Diffuse.png",
+		"Medium_Asteroid_Diffuse.png",
+		"Small_Asteroid_Diffuse.png"
+	};
+	int nbTextures = 3;
 	// textures
-	GLuint tex;
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
+	GLuint tex[nbTextures];
+	glGenTextures(nbTextures, tex);
 
-	int width, height;
-	unsigned char* image;
 	glActiveTexture(GL_TEXTURE0);
-	image = SOIL_load_image("avatar.png", &width, &height, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	SOIL_free_image_data(image);
-	glUniform1i(glGetUniformLocation(m_shaderProgram, "avatar"), 0);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	for (int currentTexture = 0; currentTexture < nbTextures; ++currentTexture) {
+		int width, height;
+		unsigned char* image;
+		glBindTexture(GL_TEXTURE_2D, tex[currentTexture]);
+		image = SOIL_load_image(
+			(texturesPath + textures[currentTexture]).c_str(),
+			&width,
+			&height,
+			0,
+			SOIL_LOAD_RGB
+		);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		SOIL_free_image_data(image);
+		glUniform1i(glGetUniformLocation(m_shaderProgram, "textureResource"), 0);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		m_world.addTexture(textures[currentTexture], tex[currentTexture]);
+	}
 }
 
 void Engine::_createShapes() {
