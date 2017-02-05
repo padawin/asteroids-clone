@@ -45,6 +45,11 @@ void Asteroid::handleCollision(Entity* entity) {
 			// destroyed
 			m_iHP -= dynamic_cast<Bullet*>(entity)->getDamages();
 			break;
+		case ENTITY_SHIP:
+		case ENTITY_ASTEROID:
+			// destroyed
+			setSpeed(getSpeed() * -1);
+			break;
 		default:
 			break;
 	}
