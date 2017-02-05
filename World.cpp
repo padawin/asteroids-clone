@@ -68,7 +68,7 @@ void World::update(Vector3D playerPosition) {
 }
 
 void World::render(GLuint shaderProgram, ShapeCollection shapes) {
-	m_renderables.render(shaderProgram, shapes);
+	m_renderables.render(shaderProgram, shapes, m_mTextures);
 }
 
 void World::clean() {
