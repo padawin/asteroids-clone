@@ -3,7 +3,13 @@
 #include "ShapeFactory.hpp"
 #include "World.hpp"
 
-Asteroid::Asteroid(float distanceRecycle) : m_fDistanceRecycle(distanceRecycle) {
+
+#define INVINCIBILITY_PERIOD 100
+
+Asteroid::Asteroid(float distanceRecycle) :
+	m_fDistanceRecycle(distanceRecycle),
+	m_iInvinciblePeriod(0)
+{
 	setCenter(Vector3D(0.0f, 0.0f, 0.0f));
 	// angle is between -2.0f and 2.0f degrees
 	float angularSpeedX = rand() % 4 - 2.0f,
@@ -26,6 +32,9 @@ bool Asteroid::update(World& world, Vector3D thresholdPosition) {
 	if (m_iHP < 0) {
 		m_iHP = 0;
 	}
+	if (m_iInvinciblePeriod > 0) {
+		--m_iInvinciblePeriod;
+	}
 	Vector3D distance = getPosition() - thresholdPosition;
 	if (m_iHP == 0 || distance.getLength() > m_fDistanceRecycle) {
 		return false;
@@ -46,6 +55,11 @@ void Asteroid::handleCollision(Entity* entity) {
 			m_iHP -= dynamic_cast<Bullet*>(entity)->getDamages();
 			break;
 		case ENTITY_SHIP:
+			if (m_iInvinciblePeriod == 0) {
+				setSpeed(getSpeed() * -1);
+			}
+			m_iInvinciblePeriod = INVINCIBILITY_PERIOD;
+			break;
 		case ENTITY_ASTEROID:
 			// destroyed
 			setSpeed(getSpeed() * -1);
