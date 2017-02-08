@@ -15,7 +15,7 @@ S_Circle Bullet::getHitZone() {
 	S_Circle hz = {
 		.x = getPosition().getX(),
 		.y = getPosition().getY(),
-		.radius = 1.0f
+		.radius = 0.25f
 	};
 
 	return hz;
