@@ -77,7 +77,7 @@ S_Circle AsteroidLarge::getHitZone() {
 	S_Circle hz = {
 		.x = getPosition().getX(),
 		.y = getPosition().getY(),
-		.radius = 1.0f
+		.radius = 0.6f
 	};
 
 	return hz;
@@ -113,7 +113,7 @@ S_Circle AsteroidMedium::getHitZone() {
 	S_Circle hz = {
 		.x = getPosition().getX(),
 		.y = getPosition().getY(),
-		.radius = 0.5f
+		.radius = 0.1f
 	};
 
 	return hz;
@@ -135,7 +135,7 @@ S_Circle AsteroidSmall::getHitZone() {
 	S_Circle hz = {
 		.x = getPosition().getX(),
 		.y = getPosition().getY(),
-		.radius = 0.25f
+		.radius = 0.1f
 	};
 
 	return hz;
