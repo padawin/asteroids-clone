@@ -61,7 +61,6 @@ void Asteroid::handleCollision(Entity* entity) {
 			m_iInvinciblePeriod = INVINCIBILITY_PERIOD;
 			break;
 		case ENTITY_ASTEROID:
-			// destroyed
 			setSpeed(getSpeed() * -1);
 			break;
 		default:
