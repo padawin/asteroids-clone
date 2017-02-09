@@ -53,8 +53,16 @@ void ObjParser::_populateShape(Shape* shape) {
 			vertices[vertexIndex++] = 68.0f;
 			vertices[vertexIndex++] = 68.0f;
 			// vertex texture
-			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].x;
-			vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].y;
+
+			if (face.vertex[i].indexTexture == 0) {
+				vertices[vertexIndex++] = 0.0f;
+				vertices[vertexIndex++] = 0.0f;
+			}
+			else {
+				S_Texture t = m_vTextures[face.vertex[i].indexTexture - 1];
+				vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].x;
+				vertices[vertexIndex++] = m_vTextures[face.vertex[i].indexTexture - 1].y;
+			}
 			// faces
 			elements[elementIndex] = elementIndex;
 			++elementIndex;
